@@ -51,14 +51,14 @@ To further improve this system, you might consider:
 
 ```
     python -m graphrag.query \
-    --root ./ragtest \
+    --root ./data \
     --method global \
     "How many heat related incidents were there?"
 ```
 
 ```
     python -m graphrag.query \
-    --root ./ragtest \
+    --root ./data \
     --method local \
     "What are the most common types of incidents?"
 ```
