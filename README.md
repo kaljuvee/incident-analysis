@@ -28,3 +28,40 @@
   ```
   streamlit run Home.py
   ```
+
+  ## Running Indexer
+
+
+```
+    mkdir -p ./data/incidents/
+``` 
+- add documents to this folder
+
+# GraphRAG CLI
+## Set Workspace Variables
+
+```
+    python -m graphrag.index --init --root ./data
+```
+
+## Running the Indexing pipeline
+
+```
+    python -m graphrag.index --root ./data
+```
+
+## Running the Query Engine
+
+```
+    python -m graphrag.query \
+    --root ./ragtest \
+    --method global \
+    "How many heat related incidents were there?"
+```
+
+```
+    python -m graphrag.query \
+    --root ./ragtest \
+    --method local \
+    "What are the most common types of incidents?"
+```
