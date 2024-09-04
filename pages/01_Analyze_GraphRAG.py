@@ -9,7 +9,7 @@ st.title("GraphRAG Query Engine")
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    root_path = st.text_input("Root Path", value="./ragtest")
+    root_path = st.text_input("Root Path", value="./data/incidents")
     query = st.text_area("Enter your query:", height=100)
     method = st.radio("Select query method:", ("global", "local"))
 
@@ -65,6 +65,6 @@ with col2:
     
     **Local method example:**
     ```
-    Who is Scrooge, and what are his main relationships?
+    "What are the most common types of incidents?"
     ```
     """)
