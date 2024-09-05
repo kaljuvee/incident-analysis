@@ -88,10 +88,31 @@ def count_incident_types(documents, incident_types):
     return counts
 
 def extract_date(text):
-    # ... (keep the existing extract_date function)
-
+    # Try to find a date in the format YYYY-MM-DD
+    date_match = re.search(r'\d{4}-\d{2}-\d{2}', text)
+    if date_match:
+        return datetime.strptime(date_match.group(), '%Y-%m-%d')
+    
+    # If not found, try other common formats
+    date_patterns = [
+        (r'\d{2}/\d{2}/\d{4}', '%m/%d/%Y'),
+        (r'\d{2}-\d{2}-\d{4}', '%m-%d-%Y'),
+        (r'\w+ \d{1,2}, \d{4}', '%B %d, %Y')
+    ]
+    
+    for pattern, date_format in date_patterns:
+        date_match = re.search(pattern, text)
+        if date_match:
+            try:
+                return datetime.strptime(date_match.group(), date_format)
+            except ValueError:
+                continue
+    
+    # If no date found, return None
+    return None
 def extract_plant(text):
-    # ... (keep the existing extract_plant function)
+    plant_match = re.search(r'Plant [A-Z]', text)
+    return plant_match.group() if plant_match else 'Unknown'
 
 def analyze_patterns(documents, incident_types):
     df = pd.DataFrame([

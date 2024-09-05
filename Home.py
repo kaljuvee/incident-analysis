@@ -11,12 +11,12 @@ This sample RAG interface provides a basic implementation to address the custome
 - **Document Retrieval:** We use TF-IDF vectorization and cosine similarity to find relevant documents based on a query.
 - **Question Answering:** We use a pre-trained question-answering model to extract specific information from the relevant documents.
 - **Incident Type Counting:** We implement a simple keyword-based counting method, which can be easily extended to include new incident types.
-- *Pattern Analysis:* We provide basic functionality to analyze incident rates per plant, changes over time, and correlations between incident types.
+- **Pattern Analysis:** We provide basic functionality to analyze incident rates per plant, changes over time, and correlations between incident types.
 
 ## Addressing Customer Concerns
             
 - **Speed:** By using TF-IDF vectorization, we can quickly retrieve relevant documents without needing to compare against all documents every time.
-- *Generalization:** The keyword-based counting can be easily extended to include new incident types without major changes to the code.
+- **Generalization:** The keyword-based counting can be easily extended to include new incident types without major changes to the code.
 - **Pattern Recognition:** The `analyze_patterns()` function provides a starting point for identifying trends and correlations in the data.
 
 ## Limitations and Areas for Improvement
