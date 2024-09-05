@@ -1,0 +1,4 @@
+{
+    "incident_id": 50,
+    "incident_report": "Employee reported dizziness and nausea in Plant A's storage area on 2024-08-17. Investigation revealed a malfunctioning ventilation system. The area was evacuated and maintenance was called."
+}
