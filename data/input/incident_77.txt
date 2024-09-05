@@ -1,0 +1,4 @@
+{
+    "incident_id": 77,
+    "incident_report": "Falling object incident in Plant C on 2024-07-09: a poorly secured shelf in the packaging area collapsed, narrowly missing a worker. No injuries, but highlighted the need for regular inspection of storage fixtures."
+}

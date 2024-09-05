@@ -1,0 +1,4 @@
+{
+    "incident_id": 59,
+    "incident_report": "Safety violation observed on 2024-03-07 in Plant B: an employee was operating machinery without proper protective helmet. The supervisor issued a verbal warning and provided the correct PPE."
+}

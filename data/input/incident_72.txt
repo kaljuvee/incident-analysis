@@ -1,0 +1,4 @@
+{
+    "incident_id": 72,
+    "incident_report": "Fire alarm triggered in Plant A on 2024-06-04 due to smoke from an overheated machine. The sprinkler system activated, causing minimal water damage. Production was halted for 1 hours."
+}

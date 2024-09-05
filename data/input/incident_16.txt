@@ -1,0 +1,4 @@
+{
+    "incident_id": 16,
+    "incident_report": "Near-miss incident on 2024-03-04 in Plant C: a crane narrowly avoided collision with a pedestrian in a blind spot. This prompted a review of traffic patterns and consideration of installing mirrors."
+}

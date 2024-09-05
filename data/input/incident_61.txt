@@ -1,0 +1,4 @@
+{
+    "incident_id": 61,
+    "incident_report": "Safety drill conducted in Plant A on 2024-08-29 revealed confusion about assembly points. Management decided to update evacuation plans and schedule additional training."
+}

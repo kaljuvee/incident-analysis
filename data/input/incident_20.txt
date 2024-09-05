@@ -1,0 +1,4 @@
+{
+    "incident_id": 20,
+    "incident_report": "Repetitive strain injury reported by an assembly line worker in Plant B on 2024-08-22. The employee complained of wrist pain after a week of increased production demands. Ergonomic assessment scheduled."
+}

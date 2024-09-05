@@ -1,0 +1,4 @@
+{
+    "incident_id": 15,
+    "incident_report": "On 2024-04-15, a worker in Plant B slipped on a wet floor near the laboratory. No serious injury occurred, but the incident highlighted the need for better signage and immediate cleanup procedures."
+}

@@ -1,0 +1,4 @@
+{
+    "incident_id": 29,
+    "incident_report": "Safety violation observed on 2024-05-06 in Plant B: an employee was operating machinery without proper protective protective eyewear. The supervisor issued a verbal warning and provided the correct PPE."
+}
