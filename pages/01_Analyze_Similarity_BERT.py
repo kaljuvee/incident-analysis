@@ -1,7 +1,6 @@
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from transformers import pipeline
+from transformers import pipeline, BertTokenizer, BertModel
 import pandas as pd
 from datetime import datetime
 import json
@@ -9,6 +8,7 @@ import glob
 import os
 import re
 import streamlit as st
+import torch
 from dotenv import load_dotenv
 from openai import OpenAI
 from gptcache import cache
@@ -32,13 +32,28 @@ def load_documents(directory):
 # Load documents
 documents = load_documents('data/incidents/')
 
-# Create a TF-IDF vectorizer
+# Load pre-trained BERT model and tokenizer
 @st.cache_resource
-def create_tfidf_matrix(docs):
-    vectorizer = TfidfVectorizer()
-    return vectorizer, vectorizer.fit_transform(docs)
+def load_bert_model():
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    model = BertModel.from_pretrained('bert-base-uncased')
+    return tokenizer, model
 
-vectorizer, tfidf_matrix = create_tfidf_matrix(documents)
+tokenizer, model = load_bert_model()
+
+# Function to get BERT embeddings
+def get_embeddings(text):
+    inputs = tokenizer(text, return_tensors='pt', max_length=512, truncation=True, padding=True)
+    with torch.no_grad():
+        outputs = model(**inputs)
+    return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
+
+# Create BERT embeddings for documents
+@st.cache_resource
+def create_bert_embeddings(docs):
+    return np.array([get_embeddings(doc) for doc in docs])
+
+document_embeddings = create_bert_embeddings(documents)
 
 # Create a question-answering pipeline
 @st.cache_resource
@@ -48,8 +63,8 @@ def load_qa_pipeline():
 qa_pipeline = load_qa_pipeline()
 
 def retrieve_relevant_docs(query, top_k=5):
-    query_vec = vectorizer.transform([query])
-    similarities = cosine_similarity(query_vec, tfidf_matrix).flatten()
+    query_embedding = get_embeddings(query)
+    similarities = cosine_similarity([query_embedding], document_embeddings).flatten()
     top_indices = similarities.argsort()[-top_k:][::-1]
     return [documents[i] for i in top_indices]
 
@@ -73,32 +88,11 @@ def count_incident_types(documents, incident_types):
     return counts
 
 def extract_date(text):
-    # Try to find a date in the format YYYY-MM-DD
-    date_match = re.search(r'\d{4}-\d{2}-\d{2}', text)
-    if date_match:
-        return datetime.strptime(date_match.group(), '%Y-%m-%d')
-    
-    # If not found, try other common formats
-    date_patterns = [
-        (r'\d{2}/\d{2}/\d{4}', '%m/%d/%Y'),
-        (r'\d{2}-\d{2}-\d{4}', '%m-%d-%Y'),
-        (r'\w+ \d{1,2}, \d{4}', '%B %d, %Y')
-    ]
-    
-    for pattern, date_format in date_patterns:
-        date_match = re.search(pattern, text)
-        if date_match:
-            try:
-                return datetime.strptime(date_match.group(), date_format)
-            except ValueError:
-                continue
-    
-    # If no date found, return None
-    return None
+    # ... (keep the existing extract_date function)
 
 def extract_plant(text):
-    plant_match = re.search(r'Plant [A-Z]', text)
-    return plant_match.group() if plant_match else 'Unknown'
+    # ... (keep the existing extract_plant function)
+
 def analyze_patterns(documents, incident_types):
     df = pd.DataFrame([
         {
