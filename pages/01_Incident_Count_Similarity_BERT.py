@@ -77,7 +77,7 @@ def extract_incident_types(documents):
     prompt += "\n\n".join(documents[:5])  # Use first 5 documents as a sample
     
     response = client.chat.completions.create(
-        model="gpt-4-0125-preview",
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt}]
     )
     incident_types = [t.strip() for t in response.choices[0].message.content.split(',')]
