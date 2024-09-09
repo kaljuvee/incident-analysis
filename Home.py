@@ -13,16 +13,17 @@ This sample RAG interface provides a basic implementation to address the custome
 - **Incident Type Counting:** We implement a simple keyword-based counting method, which can be easily extended to include new incident types.
 - **Pattern Analysis:** We provide basic functionality to analyze incident rates per plant, changes over time, and correlations between incident types.
 
-## Addressing Customer Concerns
+## Modelling Steps
             
-- **Speed:** By using TF-IDF vectorization, we can quickly retrieve relevant documents without needing to compare against all documents every time.
-- **Generalization:** The keyword-based counting can be easily extended to include new incident types without major changes to the code.
-- **Pattern Recognition:** The `analyze_patterns()` function provides a starting point for identifying trends and correlations in the data.
+- **Speed:** TF-IDF offers the fastest retrieval times.
+- **Generalization:**
+1. Embedding models, especially BERT and its variants, offer better generalization to new incident types and descriptions.
+2. The keyword-based counting can be easily extended to include new incident types without major changes to the code.
+- **Pattern Recognition:** Functionality to provide a starting point for identifying trends and correlations in the data.
 
-## Limitations and Areas for Improvement
+## Areas for Improvement
             
 - The incident type counting is still keyword-based and might miss some nuances in the descriptions.
-- The pattern analysis is quite basic and would benefit from more sophisticated statistical and machine learning techniques.
 - This implementation doesn't address the scalability issues that might arise with millions of documents.
 
 ## Further Improvements
@@ -30,7 +31,7 @@ This sample RAG interface provides a basic implementation to address the custome
 To further improve this system, you might consider:
             
 - Using more advanced NLP techniques for incident classification, such as fine-tuning a language model on your specific domain.
-- Implementing a database solution (e.g., Elasticsearch) for efficient storage and retrieval of documents.
+- Implementing a database solution for efficient storage and retrieval of documents.
 - Developing a more comprehensive analytics pipeline for pattern recognition, possibly incorporating machine learning models for prediction and anomaly detection.
 - Setting up a system for continuous learning and updating of the model as new incident types and patterns emerge.
             
