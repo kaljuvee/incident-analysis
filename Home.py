@@ -15,16 +15,8 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 - Ensures all relevant information is available for analysis
 - Provides a structured format for consistent processing
 
-## 2. Document Processing (Optional Chunking)
 
-**Purpose**: Breaks down large documents into smaller, manageable chunks.
-
-**Advantages**:
-- Improves retrieval accuracy by allowing more granular matching
-- Enables handling of long documents that might exceed model token limits
-- Facilitates more precise context selection for question answering
-
-## 3. Embedding Creation
+## 2. Embedding Creation
 
 **Purpose**: Generates vector representations (embeddings) of the documents or chunks using a selected language model.
 
@@ -33,7 +25,7 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 - Captures semantic meaning, allowing for more accurate similarity searches
 - Enables efficient retrieval of relevant information
 
-## 4.  Index Creation
+## 3.  Index Creation
 
 **Purpose**: Builds an index from the document embeddings for efficient similarity search.
 
@@ -42,7 +34,7 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 - Enables real-time retrieval of relevant documents for user queries
 - Scales well to handle growing datasets
 
-## 5. Incident Type Extraction (Tagging)
+## 4. Incident Type Extraction (Tagging)
 
 **Purpose**: Analyzes documents to extract relevant incident types using a standard LLM prompt for Named Entity Extraction (NER).
 
@@ -51,7 +43,7 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 - Identifies common themes and patterns across incident reports
 - Provides a structured way to analyze and compare different types of incidents
 
-## 6. Incident Counting
+## 5. Incident Counting
 
 **Purpose**: Counts the occurrences of each incident type across all documents.
 
@@ -60,7 +52,7 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 - Helps identify the most common safety issues
 - Provides data for prioritizing safety measures and resource allocation
 
-## 7. Pattern Analysis
+## 6. Pattern Analysis
 
 **Purpose**: Performs various analyses on the incident data.
 
@@ -70,7 +62,7 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 - Provides insights for predictive modeling and preventive measures
 - Helps in understanding the safety performance of different plants or locations
 
-## 8. Question Answering with RAG
+## 7. Question Answering with RAG
 
 **Purpose**: Retrieves relevant document chunks based on a user's question and generates an answer based on the retrieved context.
 
@@ -79,6 +71,15 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 - Leverages the entire knowledge base to give comprehensive responses
 - Improves the accuracy of answers by using relevant context
 - Enables interactive exploration of the incident data
+
+## Optional Steps -  Chunking
+
+**Purpose**: Breaks down large documents into smaller, manageable chunks (mainly useful if documents are large or many small documents combined to a large single document).
+
+**Advantages**:
+- Improves retrieval accuracy by allowing more granular matching
+- Enables handling of long documents that might exceed model token limits
+- Facilitates more precise context selection for question answering
 
 ''')   
 st.markdown('''

@@ -246,12 +246,12 @@ if selected_incident_types:
     
     # Step 4: Create FAISS index
     if 'embeddings' in st.session_state and 'faiss_index' not in st.session_state:
-        if st.button("Create FAISS Index"):
-            with st.spinner("Creating FAISS index..."):
+        if st.button("Create Index"):
+            with st.spinner("Creating an index..."):
                 st.session_state.faiss_index = create_faiss_index(st.session_state.embeddings)
-            st.success("FAISS index created successfully!")
+            st.success("Index created successfully!")
     elif 'faiss_index' in st.session_state:
-        st.success("FAISS index is already created.")
+        st.success("Index is already created.")
     
     # Button to extract incident types
     if st.button("Extract Incident Types"):
