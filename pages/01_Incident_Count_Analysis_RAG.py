@@ -13,6 +13,8 @@ from openai import OpenAI
 from gptcache import cache
 from transformers import AutoTokenizer, AutoModel
 import torch
+import faiss
+from typing import List, Dict
 
 # Load environment variables and set up OpenAI client
 load_dotenv()
@@ -29,54 +31,75 @@ MODEL_OPTIONS = {
     'XLNet': 'xlnet-base-cased'
 }
 
+# Simple text chunker
+def chunk_text(text: str, chunk_size: int = 200, overlap: int = 50) -> List[str]:
+    words = text.split()
+    chunks = []
+    for i in range(0, len(words), chunk_size - overlap):
+        chunk = ' '.join(words[i:i + chunk_size])
+        chunks.append(chunk)
+    return chunks
+
 # Load the documents from JSON files
 @st.cache_data
-def load_documents(directory):
+def load_documents(directory: str) -> List[Dict[str, str]]:
     documents = []
     for filename in glob.glob(os.path.join(directory, 'incident_*.json')):
         with open(filename, 'r') as f:
             data = json.load(f)
-            documents.append(data['incident_report'])
+            documents.append({
+                'content': data['incident_report'],
+                'source': filename
+            })
     return documents
 
-# Create a TF-IDF vectorizer
-@st.cache_resource
-def create_tfidf_matrix(docs):
-    vectorizer = TfidfVectorizer()
-    return vectorizer, vectorizer.fit_transform(docs)
+# Chunk the documents
+def chunk_documents(documents: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    chunked_documents = []
+    for doc in documents:
+        chunks = chunk_text(doc['content'])
+        for chunk in chunks:
+            chunked_documents.append({
+                'content': chunk,
+                'source': doc['source']
+            })
+    return chunked_documents
 
 # Create embeddings using the selected model
 @st.cache_resource
-def create_embeddings(docs, model_name):
+def create_embeddings(docs: List[Dict[str, str]], model_name: str):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name)
     
     embeddings = []
     for doc in docs:
-        inputs = tokenizer(doc, return_tensors="pt", truncation=True, max_length=512, padding=True)
+        inputs = tokenizer(doc['content'], return_tensors="pt", truncation=True, max_length=512, padding=True)
         with torch.no_grad():
             outputs = model(**inputs)
         embeddings.append(outputs.last_hidden_state.mean(dim=1).squeeze().numpy())
     
     return tokenizer, model, np.array(embeddings)
 
-def retrieve_relevant_docs(query, top_k=5):
-    if st.session_state.vectorization_method == 'TF-IDF':
-        query_vec = st.session_state.vectorizer.transform([query])
-        similarities = cosine_similarity(query_vec, st.session_state.tfidf_matrix).flatten()
-    else:  # Embeddings
-        inputs = st.session_state.tokenizer(query, return_tensors="pt", truncation=True, max_length=512, padding=True)
-        with torch.no_grad():
-            outputs = st.session_state.model(**inputs)
-        query_embedding = outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
-        similarities = cosine_similarity([query_embedding], st.session_state.embeddings).flatten()
+# Create FAISS index
+def create_faiss_index(embeddings: np.ndarray):
+    dimension = embeddings.shape[1]
+    index = faiss.IndexFlatL2(dimension)
+    index.add(embeddings)
+    return index
+
+# Retrieve relevant documents using FAISS
+def retrieve_relevant_docs(query: str, top_k: int = 5):
+    inputs = st.session_state.tokenizer(query, return_tensors="pt", truncation=True, max_length=512, padding=True)
+    with torch.no_grad():
+        outputs = st.session_state.model(**inputs)
+    query_embedding = outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
     
-    top_indices = similarities.argsort()[-top_k:][::-1]
-    return [st.session_state.documents[i] for i in top_indices]
+    distances, indices = st.session_state.faiss_index.search(np.array([query_embedding]), top_k)
+    return [st.session_state.processed_documents[i] for i in indices[0]]
 
 def extract_incident_types(documents, selected_types):
     prompt = f"Analyze the following incident reports and categorize them into the following types: {', '.join(selected_types)}. If an incident doesn't fit into these categories, label it as 'other'. List only the incident types found, separated by commas:\n\n"
-    prompt += "\n\n".join(documents[:5])  # Use first 5 documents as a sample
+    prompt += "\n\n".join([doc['content'] for doc in documents[:5]])  # Use first 5 documents as a sample
     
     gpt_model = st.session_state.gpt_model
     
@@ -88,7 +111,7 @@ def extract_incident_types(documents, selected_types):
     return incident_types
 
 def count_incident_types(documents, incident_types):
-    counts = {incident: sum(1 for doc in documents if incident.lower() in doc.lower()) for incident in incident_types}
+    counts = {incident: sum(1 for doc in documents if incident.lower() in doc['content'].lower()) for incident in incident_types}
     return counts
 
 def extract_date(text):
@@ -122,9 +145,9 @@ def extract_plant(text):
 def analyze_patterns(documents, incident_types):
     df = pd.DataFrame([
         {
-            'date': extract_date(doc),
-            'plant': extract_plant(doc),
-            'incident': doc
+            'date': extract_date(doc['content']),
+            'plant': extract_plant(doc['content']),
+            'incident': doc['content']
         }
         for doc in documents
     ])
@@ -155,10 +178,10 @@ def analyze_patterns(documents, incident_types):
     }
 
 # Streamlit app
-st.title("Incident Analysis Dashboard")
+st.title("Incident Analysis Dashboard with RAG")
 
 # Sidebar for GPT model selection
-gpt_models = ["gpt-4", "gpt-4-turbo", "gpt-4o"]
+gpt_models = ["gpt-4o", "gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"]
 st.session_state.gpt_model = st.sidebar.selectbox("Select GPT Model", gpt_models)
 
 # Sidebar for vectorization method selection
@@ -168,6 +191,9 @@ st.session_state.vectorization_method = st.sidebar.selectbox("Select Vectorizati
 # Sidebar for embedding model selection (only shown if Embeddings is selected)
 if st.session_state.vectorization_method == "Embeddings":
     st.session_state.embedding_model = st.sidebar.selectbox("Select Embedding Model", list(MODEL_OPTIONS.keys()))
+
+# Sidebar for document processing option
+st.session_state.use_chunking = st.sidebar.radio("Document Processing", ["Full Documents", "Chunked Documents"]) == "Chunked Documents"
 
 # Sidebar for incident type selection
 default_incident_types = ['slip', 'fire', 'safety violation', 'chemical spill', 'injury', 'near-miss', 
@@ -186,30 +212,56 @@ if custom_type and custom_type not in selected_incident_types:
 
 # Main content
 if selected_incident_types:
-    # Load documents
+    # Step 1: Load documents
     if 'documents' not in st.session_state:
-        with st.spinner("Loading documents..."):
-            st.session_state.documents = load_documents('data/incidents/')
-        st.success("Documents loaded successfully!")
+        if st.button("Load Documents"):
+            with st.spinner("Loading documents..."):
+                st.session_state.documents = load_documents('data/incidents/')
+            st.success("Documents loaded successfully!")
+    elif st.session_state.documents:
+        st.success("Documents are already loaded.")
     
-    documents = st.session_state.documents
+    # Step 2: Process documents (chunking if selected)
+    if 'documents' in st.session_state and 'processed_documents' not in st.session_state:
+        if st.button("Process Documents"):
+            with st.spinner("Processing documents..."):
+                if st.session_state.use_chunking:
+                    st.session_state.processed_documents = chunk_documents(st.session_state.documents)
+                    st.success(f"Documents chunked successfully! Total chunks: {len(st.session_state.processed_documents)}")
+                else:
+                    st.session_state.processed_documents = st.session_state.documents
+                    st.success("Documents processed without chunking.")
+    elif 'processed_documents' in st.session_state:
+        st.success("Documents are already processed.")
     
-    # Prepare vectorization
-    if st.button("Prepare Vectorization"):
-        with st.spinner(f"Preparing {st.session_state.vectorization_method} vectorization..."):
-            if st.session_state.vectorization_method == 'TF-IDF':
-                st.session_state.vectorizer, st.session_state.tfidf_matrix = create_tfidf_matrix(documents)
-            else:  # Embeddings
+    # Step 3: Create embeddings
+    if 'processed_documents' in st.session_state and 'embeddings' not in st.session_state:
+        if st.button("Create Embeddings"):
+            with st.spinner(f"Creating embeddings using {st.session_state.embedding_model}..."):
                 model_name = MODEL_OPTIONS[st.session_state.embedding_model]
-                st.session_state.tokenizer, st.session_state.model, st.session_state.embeddings = create_embeddings(documents, model_name)
-        st.success(f"{st.session_state.vectorization_method} vectorization prepared successfully!")
+                st.session_state.tokenizer, st.session_state.model, st.session_state.embeddings = create_embeddings(st.session_state.processed_documents, model_name)
+            st.success("Embeddings created successfully!")
+    elif 'embeddings' in st.session_state:
+        st.success("Embeddings are already created.")
+    
+    # Step 4: Create FAISS index
+    if 'embeddings' in st.session_state and 'faiss_index' not in st.session_state:
+        if st.button("Create FAISS Index"):
+            with st.spinner("Creating FAISS index..."):
+                st.session_state.faiss_index = create_faiss_index(st.session_state.embeddings)
+            st.success("FAISS index created successfully!")
+    elif 'faiss_index' in st.session_state:
+        st.success("FAISS index is already created.")
     
     # Button to extract incident types
     if st.button("Extract Incident Types"):
-        with st.spinner("Extracting incident types..."):
-            st.session_state.incident_types = extract_incident_types(documents, selected_incident_types)
-        st.success("Incident types extracted successfully!")
-        st.write("Extracted incident types:", st.session_state.incident_types)
+        if 'processed_documents' not in st.session_state:
+            st.warning("Please process the documents first.")
+        else:
+            with st.spinner("Extracting incident types..."):
+                st.session_state.incident_types = extract_incident_types(st.session_state.processed_documents, selected_incident_types)
+            st.success("Incident types extracted successfully!")
+            st.write("Extracted incident types:", st.session_state.incident_types)
     
     # Button to count incidents
     if st.button("Count Incidents"):
@@ -217,7 +269,7 @@ if selected_incident_types:
             st.warning("Please extract incident types first.")
         else:
             with st.spinner("Counting incidents..."):
-                counts = count_incident_types(documents, st.session_state.incident_types)
+                counts = count_incident_types(st.session_state.processed_documents, st.session_state.incident_types)
             st.success("Incidents counted successfully!")
             st.header("Incident Type Counts")
             st.bar_chart(counts)
@@ -228,7 +280,7 @@ if selected_incident_types:
             st.warning("Please extract incident types first.")
         else:
             with st.spinner("Analyzing patterns..."):
-                analysis_results = analyze_patterns(documents, st.session_state.incident_types)
+                analysis_results = analyze_patterns(st.session_state.processed_documents, st.session_state.incident_types)
             st.success("Pattern analysis completed successfully!")
             
             st.header("Pattern Analysis")
@@ -242,30 +294,35 @@ if selected_incident_types:
             st.subheader("Incident Type Correlations")
             st.dataframe(analysis_results['incident_type_correlations'])
     
-    # Question Answering section
-    st.header("Question Answering")
+    # Question Answering section with RAG
+    st.header("Question Answering with RAG")
     query = st.text_input("Enter your question about the incidents:")
     if st.button("Answer Question"):
         if query:
-            if 'vectorizer' not in st.session_state and 'model' not in st.session_state:
-                st.warning("Please prepare vectorization first.")
+            if 'faiss_index' not in st.session_state:
+                st.warning("Please complete all previous steps before asking a question.")
             else:
                 with st.spinner("Answering question..."):
                     relevant_docs = retrieve_relevant_docs(query)
+                    context = "\n".join([doc['content'] for doc in relevant_docs])
+                    
+                    # Use GPT for answering with RAG
+                    response = client.chat.completions.create(
+                        model=st.session_state.gpt_model,
+                        messages=[
+                            {"role": "system", "content": "You are a helpful assistant analyzing incident reports. Use the provided context to answer the question."},
+                            {"role": "user", "content": f"Context: {context}\n\nQuestion: {query}"}
+                        ]
+                    )
+                    st.subheader("Answer:")
+                    st.write(response.choices[0].message.content)
+                    
+                    st.subheader("Relevant Document Chunks:")
                     for i, doc in enumerate(relevant_docs, 1):
-                        st.subheader(f"Relevant Document {i}")
-                        st.write(doc)
-                        
-                        # Use GPT for answering
-                        response = client.chat.completions.create(
-                            model=st.session_state.gpt_model,
-                            messages=[
-                                {"role": "system", "content": "You are a helpful assistant analyzing incident reports."},
-                                {"role": "user", "content": f"Based on this incident report: '{doc}', please answer the following question: {query}"}
-                            ]
-                        )
-                        st.write("Answer:", response.choices[0].message.content)
-                st.success("Question answered!")
+                        st.write(f"{'Chunk' if st.session_state.use_chunking else 'Document'} {i} (Source: {doc['source']}):")
+                        st.write(doc['content'])
+                        st.write("---")
+                st.success("Question answered using RAG!")
         else:
             st.warning("Please enter a question.")
 
