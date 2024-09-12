@@ -83,7 +83,7 @@ This document outlines the sequence of steps involved in the Retrieval-Augmented
 ''')   
 st.markdown('''
 
-# GraphRAG CLI
+# GraphRAG CLI Samples
 ## Set Workspace Variables
 
 ```
