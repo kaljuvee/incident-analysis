@@ -293,7 +293,14 @@ if selected_incident_types:
             
             st.subheader("Incident Type Correlations")
             st.dataframe(analysis_results['incident_type_correlations'])
-    
+            st.markdown('''
+            **Interpretation**:
+            
+            - Rows represent the initial incident type, and columns represent the subsequent incident type.
+            - Each number shows how many times an incident of the row type was followed by an incident of the column type.
+            - The diagonal (where row and column are the same) shows incidents of the same type occurring consecutively.
+
+            ''')
     # Question Answering section with RAG
     st.header("Question Answering with RAG")
     query = st.text_input("Enter your question about the incidents:")
