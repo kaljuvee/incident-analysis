@@ -97,9 +97,11 @@ def retrieve_relevant_docs(query: str, top_k: int = 5):
     distances, indices = st.session_state.faiss_index.search(np.array([query_embedding]), top_k)
     return [st.session_state.processed_documents[i] for i in indices[0]]
 
-def extract_incident_types(documents, selected_types):
+num_docs_to_analyze = st.slider("Number of documents to analyze", min_value=1, max_value=len(st.session_state.processed_documents), value=5, step=1)
+
+def extract_incident_types(documents, selected_types, num_docs):
     prompt = f"Analyze the following incident reports and categorize them into the following types: {', '.join(selected_types)}. If an incident doesn't fit into these categories, label it as 'other'. List only the incident types found, separated by commas:\n\n"
-    prompt += "\n\n".join([doc['content'] for doc in documents[:5]])  # Use first 5 documents as a sample
+    prompt += "\n\n".join([doc['content'] for doc in documents[:num_docs]])  # Use user-specified number of documents
     
     gpt_model = st.session_state.gpt_model
     
@@ -258,8 +260,8 @@ if selected_incident_types:
         if 'processed_documents' not in st.session_state:
             st.warning("Please process the documents first.")
         else:
-            with st.spinner("Extracting incident types..."):
-                st.session_state.incident_types = extract_incident_types(st.session_state.processed_documents, selected_incident_types)
+            with st.spinner(f"Extracting incident types from {num_docs_to_analyze} documents..."):
+                st.session_state.incident_types = extract_incident_types(st.session_state.processed_documents, selected_incident_types, num_docs_to_analyze)
             st.success("Incident types extracted successfully!")
             st.write("Extracted incident types:", st.session_state.incident_types)
     
