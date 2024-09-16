@@ -13,3 +13,4 @@ langchain-community
 langchain-huggingface
 graphrag
 gptcache
+transformers
