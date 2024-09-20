@@ -1,0 +1,5 @@
+,Injury,Fire,Equipment Failure,Electrical
+Injury,10,0,0,0
+Fire,0,8,0,0
+Equipment Failure,0,0,5,0
+Electrical,0,0,0,7
