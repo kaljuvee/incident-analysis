@@ -6,3 +6,7 @@ scikit-learn
 Faker
 plotly
 transformers
+langchain
+langchain-community
+langchain-huggingface
+gptcache
