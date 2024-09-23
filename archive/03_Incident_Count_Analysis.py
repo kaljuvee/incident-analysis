@@ -158,7 +158,7 @@ def analyze_patterns(documents, incident_types):
 st.title("Incident Analysis Dashboard")
 
 # Sidebar for GPT model selection
-gpt_models = ["gpt-4", "gpt-4-turbo", "gpt-4o"]
+gpt_models = ["gpt-4o", "gpt-4", "gpt-4-turbo"]
 st.session_state.gpt_model = st.sidebar.selectbox("Select GPT Model", gpt_models)
 
 # Sidebar for vectorization method selection
