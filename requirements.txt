@@ -10,3 +10,7 @@ langchain
 langchain-community
 langchain-huggingface
 gptcache
+azure-ai-textanalytics
+azure-search-documents
+azure-cognitiveservices-vision-computervision
+msrest
