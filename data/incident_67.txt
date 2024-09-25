@@ -1,6 +1,6 @@
 Incident ID: 67
-Plant: Plant D
-Date: 2024-07-27
-Description: A near-miss incident was reported on 2024-07-27 at Plant D.
-Incident Type: fire
-Cause: Human error
+Plant: Plant B
+Date: 2024-04-12
+Description: A fire alarm was triggered in Plant B's assembly line on 2024-04-12.
+Incident Type: ventilation
+Cause: Environment

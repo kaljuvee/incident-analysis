@@ -11,6 +11,7 @@ from openai import OpenAI
 from gptcache import cache
 import faiss
 from typing import List, Dict
+import pickle
 from difflib import SequenceMatcher
 
 # Load environment variables and set up OpenAI client
@@ -43,13 +44,13 @@ if 'model' not in st.session_state:
     st.session_state.model = None
 
 ORIG_INCIDENT_TYPES = [
-    'slip', 'fire', 'safety violation', 'chemical spill', 'injury', 'near-miss',
+    'slip', 'fire', 'safety_violation', 'chemical_spill', 'injury', 'near_miss',
     'electrical', 'ventilation', 'falling object', 'heat exhaustion'
 ]
 
 # Add this new function for comparing incident types
 def compare_incident_types(original, discovered):
-    original_formatted = [o.replace(' ', '_').replace('-', '_') for o in original]
+    original_formatted = [o.replace('-', ' ') for o in original]
     
     # Find exact matches
     exact_matches = set(original_formatted) & set(discovered)
@@ -220,8 +221,29 @@ def analyze_patterns(documents, incident_types):
         'incident_type_correlations': correlation_matrix.to_dict()
     }
 
+# Add this function to load and process the CSV file
+def load_incident_frequency():
+    df = pd.read_csv('data/incident_type_frequency.csv')
+    return dict(zip(df['Incident Type'], df['Frequency']))
+
+# Add these new functions to save and load embeddings and index
+def save_embeddings_and_index(embeddings, index, processed_documents):
+    with open('embeddings.pkl', 'wb') as f:
+        pickle.dump(embeddings, f)
+    faiss.write_index(index, 'faiss_index.bin')
+    with open('processed_documents.pkl', 'wb') as f:
+        pickle.dump(processed_documents, f)
+
+def load_embeddings_and_index():
+    with open('embeddings.pkl', 'rb') as f:
+        embeddings = pickle.load(f)
+    index = faiss.read_index('faiss_index.bin')
+    with open('processed_documents.pkl', 'rb') as f:
+        processed_documents = pickle.load(f)
+    return embeddings, index, processed_documents
+
 # Streamlit app
-st.title("Incident Analysis Dashboard with RAG")
+st.title("Incident Analysis Dashboard")
 
 # Sidebar for GPT model selection
 gpt_models = ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"]
@@ -275,7 +297,7 @@ else:
 if st.session_state.processed_documents is not None and st.session_state.embeddings is None:
     if st.button("Create Embeddings"):
         with st.spinner(f"Creating embeddings using {st.session_state.embedding_model}..."):
-            st.session_state.tokenizer, st.session_state.model, st.session_state.embeddings = create_embeddings(st.session_state.processed_documents, st.session_state.embedding_model)
+            st.session_state.embeddings = create_embeddings(st.session_state.processed_documents, st.session_state.embedding_model)
         st.success("Embeddings created successfully!")
 elif st.session_state.embeddings is not None:
     st.success("Embeddings are already created.")
@@ -288,6 +310,13 @@ if st.session_state.embeddings is not None and st.session_state.faiss_index is N
         st.success("Index created successfully!")
 elif st.session_state.faiss_index is not None:
     st.success("Index is already created.")
+
+# Add a button to save embeddings and index
+if st.session_state.embeddings is not None and st.session_state.faiss_index is not None:
+    if st.button("Save Embeddings and Index"):
+        with st.spinner("Saving embeddings and index..."):
+            save_embeddings_and_index(st.session_state.embeddings, st.session_state.faiss_index, st.session_state.processed_documents)
+        st.success("Embeddings and index saved successfully!")
 
 # Button to discover incident types
 if st.button("Discover Incident Types"):
@@ -328,6 +357,7 @@ if st.button("Count Incidents"):
     else:
         with st.spinner("Counting incidents..."):
             counts = count_incident_types(st.session_state.processed_documents, st.session_state.incident_types)
+            st.session_state.counts = counts  # Store counts in session state
         st.success("Incidents counted successfully!")
         st.header("Incident Type Counts")
         st.bar_chart(counts)
@@ -390,6 +420,51 @@ if st.button("Analyze Patterns"):
                 st.success("Question answered using RAG!")
         else:
             st.warning("Please enter a question.")
+
+# Add this new button and functionality
+if st.button("Compare Frequencies"):
+    if st.session_state.incident_types is None or 'counts' not in st.session_state:
+        st.warning("Please discover and count incident types first.")
+    else:
+        with st.spinner("Loading and comparing frequencies..."):
+            csv_frequencies = load_incident_frequency()
+            discovered_frequencies = st.session_state.counts
+
+            st.subheader("Frequency Comparison")
+
+            # Create a DataFrame for easy comparison
+            comparison_df = pd.DataFrame({
+                'CSV Frequency': pd.Series(csv_frequencies),
+                'Discovered Frequency': pd.Series(discovered_frequencies)
+            }).fillna(0)
+
+            # Calculate the difference
+            comparison_df['Difference'] = comparison_df['Discovered Frequency'] - comparison_df['CSV Frequency']
+
+            # Display the comparison
+            st.dataframe(comparison_df)
+
+            # Visualize the comparison
+            st.bar_chart(comparison_df[['CSV Frequency', 'Discovered Frequency']])
+
+            # Analysis of differences
+            st.subheader("Analysis of Differences")
+            new_types = set(discovered_frequencies.keys()) - set(csv_frequencies.keys())
+            missing_types = set(csv_frequencies.keys()) - set(discovered_frequencies.keys())
+            
+            if new_types:
+                st.write("Newly discovered incident types:", ", ".join(new_types))
+            if missing_types:
+                st.write("Incident types not found in the current analysis:", ", ".join(missing_types))
+            
+            significant_diff = comparison_df[abs(comparison_df['Difference']) > 5].index.tolist()
+            if significant_diff:
+                st.write("Incident types with significant frequency differences:")
+                for incident_type in significant_diff:
+                    st.write(f"- {incident_type}: CSV: {csv_frequencies.get(incident_type, 0)}, "
+                             f"Discovered: {discovered_frequencies.get(incident_type, 0)}")
+
+        st.success("Frequency comparison completed!")
 
 else:
     st.warning("Please select at least one incident type to analyze.")

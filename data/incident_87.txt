@@ -1,6 +1,6 @@
 Incident ID: 87
-Plant: Plant D
-Date: 2024-01-18
-Description: A fire alarm was triggered in Plant D's assembly line on 2024-01-18.
-Incident Type: near-miss
+Plant: Plant B
+Date: 2024-02-06
+Description: On 2024-02-06, a worker in Plant B's production area tripped over an unmarked hazard.
+Incident Type: fire
 Cause: Unknown

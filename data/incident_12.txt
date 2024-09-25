@@ -1,6 +1,6 @@
 Incident ID: 12
-Plant: Plant B
-Date: 2024-07-04
-Description: Symptoms of heat exhaustion were reported by a worker in Plant B on 2024-07-04.
-Incident Type: ventilation
-Cause: Equipment
+Plant: Plant C
+Date: 2024-02-03
+Description: Symptoms of heat exhaustion were reported by a worker in Plant C on 2024-02-03.
+Incident Type: heat_exhaustion
+Cause: Unknown

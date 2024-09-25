@@ -1,6 +1,6 @@
 Incident ID: 65
-Plant: Plant A
-Date: 2024-05-31
-Description: A fire alarm was triggered in Plant A's assembly line on 2024-05-31.
-Incident Type: safety violation
-Cause: Equipment
+Plant: Plant B
+Date: 2024-04-10
+Description: On 2024-04-10, a worker in Plant B's production area tripped over an unmarked hazard.
+Incident Type: near_miss
+Cause: Unknown

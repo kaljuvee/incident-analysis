@@ -1,6 +1,6 @@
 Incident ID: 18
-Plant: Plant C
-Date: 2024-06-03
-Description: A fire alarm was triggered in Plant C's assembly line on 2024-06-03.
-Incident Type: electrical
-Cause: Environment
+Plant: Plant D
+Date: 2024-01-29
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-01-29.
+Incident Type: near_miss
+Cause: Unknown

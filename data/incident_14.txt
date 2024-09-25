@@ -1,6 +1,6 @@
 Incident ID: 14
-Plant: Plant B
-Date: 2024-06-11
-Description: Employee reported dizziness and nausea in Plant B's packaging area on 2024-06-11.
-Incident Type: chemical spill
-Cause: Equipment
+Plant: Plant C
+Date: 2024-04-12
+Description: On 2024-04-12, a worker in Plant C's production area tripped over an unmarked hazard.
+Incident Type: heat_exhaustion
+Cause: Unknown

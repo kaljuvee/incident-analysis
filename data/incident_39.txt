@@ -1,6 +1,6 @@
 Incident ID: 39
-Plant: Plant C
-Date: 2024-03-21
-Description: On 2024-03-21, a worker in Plant C's production area tripped over an unmarked hazard.
-Incident Type: heat exhaustion
-Cause: Unknown
+Plant: Plant A
+Date: 2024-08-27
+Description: Employee reported dizziness and nausea in Plant A's packaging area on 2024-08-27.
+Incident Type: safety_violation
+Cause: Environment

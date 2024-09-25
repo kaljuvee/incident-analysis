@@ -1,6 +1,6 @@
 Incident ID: 21
-Plant: Plant C
-Date: 2024-08-14
-Description: Symptoms of heat exhaustion were reported by a worker in Plant C on 2024-08-14.
-Incident Type: safety violation
-Cause: Environment
+Plant: Plant B
+Date: 2024-07-09
+Description: On 2024-07-09, a worker in Plant B's production area tripped over an unmarked hazard.
+Incident Type: slip
+Cause: Human error

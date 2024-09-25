@@ -1,6 +1,6 @@
 Incident ID: 55
-Plant: Plant D
-Date: 2024-06-05
-Description: A fire alarm was triggered in Plant D's assembly line on 2024-06-05.
-Incident Type: fire
+Plant: Plant C
+Date: 2024-06-17
+Description: Employee reported dizziness and nausea in Plant C's packaging area on 2024-06-17.
+Incident Type: near_miss
 Cause: Environment

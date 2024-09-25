@@ -1,6 +1,6 @@
 Incident ID: 40
 Plant: Plant A
-Date: 2024-06-02
-Description: Employee reported dizziness and nausea in Plant A's packaging area on 2024-06-02.
-Incident Type: injury
+Date: 2024-05-28
+Description: Symptoms of heat exhaustion were reported by a worker in Plant A on 2024-05-28.
+Incident Type: ventilation
 Cause: Environment

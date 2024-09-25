@@ -1,6 +1,6 @@
 Incident ID: 78
-Plant: Plant C
-Date: 2024-09-18
-Description: On 2024-09-18, a worker in Plant C's production area tripped over an unmarked hazard.
-Incident Type: fire
-Cause: Equipment
+Plant: Plant D
+Date: 2024-07-03
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-07-03.
+Incident Type: falling_object
+Cause: Unknown

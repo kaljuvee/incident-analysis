@@ -1,6 +1,6 @@
 Incident ID: 97
-Plant: Plant D
-Date: 2024-02-05
-Description: Employee reported dizziness and nausea in Plant D's packaging area on 2024-02-05.
+Plant: Plant B
+Date: 2024-08-21
+Description: On 2024-08-21, a worker in Plant B's production area tripped over an unmarked hazard.
 Incident Type: electrical
-Cause: Human error
+Cause: Equipment

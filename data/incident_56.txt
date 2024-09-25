@@ -1,6 +1,6 @@
 Incident ID: 56
 Plant: Plant A
-Date: 2024-07-15
-Description: A near-miss incident was reported on 2024-07-15 at Plant A.
-Incident Type: safety violation
-Cause: Environment
+Date: 2024-03-23
+Description: On 2024-03-23, a worker in Plant A's production area tripped over an unmarked hazard.
+Incident Type: fire
+Cause: Human error

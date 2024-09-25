@@ -1,6 +1,6 @@
 Incident ID: 30
 Plant: Plant C
-Date: 2024-05-08
-Description: A fire alarm was triggered in Plant C's assembly line on 2024-05-08.
-Incident Type: slip
-Cause: Environment
+Date: 2024-08-29
+Description: A near-miss incident was reported on 2024-08-29 at Plant C.
+Incident Type: near_miss
+Cause: Human error

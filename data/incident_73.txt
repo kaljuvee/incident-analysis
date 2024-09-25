@@ -1,6 +1,6 @@
 Incident ID: 73
-Plant: Plant B
-Date: 2024-07-05
-Description: Symptoms of heat exhaustion were reported by a worker in Plant B on 2024-07-05.
-Incident Type: electrical
-Cause: Equipment
+Plant: Plant C
+Date: 2024-04-28
+Description: Employee reported dizziness and nausea in Plant C's packaging area on 2024-04-28.
+Incident Type: near_miss
+Cause: Human error

@@ -1,6 +1,6 @@
 Incident ID: 4
-Plant: Plant B
-Date: 2024-08-18
-Description: On 2024-08-18, a worker in Plant B's production area tripped over an unmarked hazard.
-Incident Type: fire
-Cause: Human error
+Plant: Plant D
+Date: 2024-05-23
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-05-23.
+Incident Type: near_miss
+Cause: Environment

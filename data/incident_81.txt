@@ -1,6 +1,6 @@
 Incident ID: 81
 Plant: Plant B
-Date: 2024-07-27
-Description: Symptoms of heat exhaustion were reported by a worker in Plant B on 2024-07-27.
-Incident Type: heat exhaustion
-Cause: Equipment
+Date: 2024-03-18
+Description: On 2024-03-18, a worker in Plant B's production area tripped over an unmarked hazard.
+Incident Type: falling_object
+Cause: Human error

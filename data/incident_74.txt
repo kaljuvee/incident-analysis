@@ -1,6 +1,6 @@
 Incident ID: 74
-Plant: Plant B
-Date: 2024-03-10
-Description: Employee reported dizziness and nausea in Plant B's packaging area on 2024-03-10.
-Incident Type: electrical
-Cause: Unknown
+Plant: Plant A
+Date: 2024-08-03
+Description: A fire alarm was triggered in Plant A's assembly line on 2024-08-03.
+Incident Type: near_miss
+Cause: Equipment

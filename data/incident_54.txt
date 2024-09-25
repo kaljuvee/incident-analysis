@@ -1,6 +1,6 @@
 Incident ID: 54
-Plant: Plant B
-Date: 2024-06-01
-Description: A fire alarm was triggered in Plant B's assembly line on 2024-06-01.
-Incident Type: ventilation
-Cause: Unknown
+Plant: Plant C
+Date: 2024-03-16
+Description: A fire alarm was triggered in Plant C's assembly line on 2024-03-16.
+Incident Type: heat_exhaustion
+Cause: Equipment

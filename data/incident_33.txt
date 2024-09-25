@@ -1,6 +1,6 @@
 Incident ID: 33
 Plant: Plant C
-Date: 2024-04-08
-Description: Employee reported dizziness and nausea in Plant C's packaging area on 2024-04-08.
-Incident Type: electrical
-Cause: Environment
+Date: 2024-08-18
+Description: On 2024-08-18, a worker in Plant C's production area tripped over an unmarked hazard.
+Incident Type: slip
+Cause: Human error

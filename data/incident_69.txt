@@ -1,6 +1,6 @@
 Incident ID: 69
-Plant: Plant B
-Date: 2024-05-31
-Description: A fire alarm was triggered in Plant B's assembly line on 2024-05-31.
+Plant: Plant D
+Date: 2024-02-10
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-02-10.
 Incident Type: injury
 Cause: Environment

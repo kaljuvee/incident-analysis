@@ -1,6 +1,6 @@
 Incident ID: 37
-Plant: Plant B
-Date: 2024-01-28
-Description: A near-miss incident was reported on 2024-01-28 at Plant B.
-Incident Type: heat exhaustion
-Cause: Environment
+Plant: Plant C
+Date: 2024-01-06
+Description: Symptoms of heat exhaustion were reported by a worker in Plant C on 2024-01-06.
+Incident Type: safety_violation
+Cause: Unknown

@@ -1,6 +1,6 @@
 Incident ID: 46
-Plant: Plant B
-Date: 2024-03-19
-Description: Employee reported dizziness and nausea in Plant B's packaging area on 2024-03-19.
-Incident Type: injury
-Cause: Unknown
+Plant: Plant A
+Date: 2024-05-24
+Description: On 2024-05-24, a worker in Plant A's production area tripped over an unmarked hazard.
+Incident Type: fire
+Cause: Equipment

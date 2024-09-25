@@ -1,6 +1,6 @@
 Incident ID: 44
 Plant: Plant A
-Date: 2024-01-01
-Description: On 2024-01-01, a worker in Plant A's production area tripped over an unmarked hazard.
-Incident Type: fire
-Cause: Environment
+Date: 2024-06-05
+Description: A near-miss incident was reported on 2024-06-05 at Plant A.
+Incident Type: near_miss
+Cause: Human error

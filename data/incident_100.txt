@@ -1,6 +1,6 @@
 Incident ID: 100
 Plant: Plant A
-Date: 2024-07-20
-Description: Symptoms of heat exhaustion were reported by a worker in Plant A on 2024-07-20.
-Incident Type: chemical spill
-Cause: Unknown
+Date: 2024-02-18
+Description: Symptoms of heat exhaustion were reported by a worker in Plant A on 2024-02-18.
+Incident Type: ventilation
+Cause: Equipment

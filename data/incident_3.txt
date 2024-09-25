@@ -1,6 +1,6 @@
 Incident ID: 3
-Plant: Plant C
-Date: 2024-07-15
-Description: On 2024-07-15, a worker in Plant C's production area tripped over an unmarked hazard.
-Incident Type: injury
-Cause: Human error
+Plant: Plant A
+Date: 2024-03-27
+Description: A fire alarm was triggered in Plant A's assembly line on 2024-03-27.
+Incident Type: heat_exhaustion
+Cause: Unknown

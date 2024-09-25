@@ -1,6 +1,6 @@
 Incident ID: 88
-Plant: Plant C
-Date: 2024-09-16
-Description: On 2024-09-16, a worker in Plant C's production area tripped over an unmarked hazard.
-Incident Type: chemical spill
-Cause: Unknown
+Plant: Plant A
+Date: 2024-03-20
+Description: A fire alarm was triggered in Plant A's assembly line on 2024-03-20.
+Incident Type: fire
+Cause: Equipment

@@ -1,6 +1,6 @@
 Incident ID: 75
-Plant: Plant C
-Date: 2024-02-11
-Description: Employee reported dizziness and nausea in Plant C's packaging area on 2024-02-11.
-Incident Type: safety violation
-Cause: Equipment
+Plant: Plant A
+Date: 2024-02-17
+Description: Symptoms of heat exhaustion were reported by a worker in Plant A on 2024-02-17.
+Incident Type: fire
+Cause: Environment

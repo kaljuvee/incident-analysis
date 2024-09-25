@@ -1,11 +1,11 @@
 Incident Type,Frequency
-safety violation,17
-injury,14
-fire,13
-heat exhaustion,13
-ventilation,11
-electrical,9
-chemical spill,8
-slip,7
-falling object,5
-near-miss,3
+slip,16
+falling_object,13
+near_miss,13
+safety_violation,11
+heat_exhaustion,11
+chemical_spill,11
+fire,10
+electrical,7
+ventilation,5
+injury,3

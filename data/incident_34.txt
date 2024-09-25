@@ -1,6 +1,6 @@
 Incident ID: 34
-Plant: Plant B
-Date: 2024-05-24
-Description: On 2024-05-24, a worker in Plant B's production area tripped over an unmarked hazard.
-Incident Type: injury
-Cause: Human error
+Plant: Plant D
+Date: 2024-07-07
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-07-07.
+Incident Type: slip
+Cause: Unknown

@@ -13,9 +13,10 @@ fake = Faker()
 
 # Incident types and causes
 incident_types = [
-    'slip', 'fire', 'safety violation', 'chemical spill', 'injury', 'near-miss', 
-    'electrical', 'ventilation', 'falling object', 'heat exhaustion'
+    'slip', 'fire', 'safety_violation', 'chemical_spill', 'injury', 'near_miss',
+    'electrical', 'ventilation', 'falling_object', 'heat_exhaustion'
 ]
+
 incident_causes = ['Human error', 'Equipment', 'Environment', 'Unknown']
 plants = ['Plant A', 'Plant B', 'Plant C', 'Plant D']
 
