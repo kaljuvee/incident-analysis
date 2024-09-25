@@ -15,3 +15,7 @@ azure-search-documents
 azure-cognitiveservices-vision-computervision
 msrest
 openai
+gptcache
+transformers
+torch
+faiss-cpu
