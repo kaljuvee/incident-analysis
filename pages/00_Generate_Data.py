@@ -139,16 +139,6 @@ if st.button("Generate"):
     st.subheader("Sample Data (Up to 100 Records)")
     st.dataframe(df_filtered.head(100))
 
-    # Display incident counts by cause
-    st.subheader("Incident Count by Cause")
-    incidents_by_cause_df = incidents_by_cause(df_filtered)
-    st.dataframe(incidents_by_cause_df)
-
-    # Display incident cause by location
-    st.subheader("Incident Cause by Location")
-    incident_cause_by_location_df = incident_cause_by_location(df_filtered)
-    st.dataframe(incident_cause_by_location_df)
-
     plot_incident_stats(df_filtered)
     
     # Generate a summary CSV

@@ -100,7 +100,7 @@ def retrieve_relevant_docs(query: str, top_k: int = 5):
 num_docs_to_analyze = st.slider("Number of documents to analyze", min_value=1, max_value=len(st.session_state.processed_documents), value=5, step=1)
 
 def extract_incident_types(documents, selected_types, num_docs):
-    prompt = f"Analyze the following incident reports and categorize them into the following types: {', '.join(selected_types)}. If an incident doesn't fit into these categories, label it as 'other'. List only the incident types found, separated by commas:\n\n"
+    prompt = f"Analyze the following incident reports and categorize them into the following types: {', '.join(selected_types)}. If an incident doesn't fit into these categories, find the closest category and label it as such. List only the incident types found, separated by commas:\n\n"
     prompt += "\n\n".join([doc['content'] for doc in documents[:num_docs]])  # Use user-specified number of documents
     
     gpt_model = st.session_state.gpt_model
