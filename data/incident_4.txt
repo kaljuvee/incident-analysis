@@ -1,0 +1,6 @@
+Incident ID: 4
+Plant: Plant B
+Date: 2024-08-18
+Description: On 2024-08-18, a worker in Plant B's production area tripped over an unmarked hazard.
+Incident Type: fire
+Cause: Human error

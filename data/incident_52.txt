@@ -1,0 +1,6 @@
+Incident ID: 52
+Plant: Plant B
+Date: 2024-07-29
+Description: A near-miss incident was reported on 2024-07-29 at Plant B.
+Incident Type: slip
+Cause: Human error

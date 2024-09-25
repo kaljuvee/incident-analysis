@@ -1,0 +1,6 @@
+Incident ID: 28
+Plant: Plant C
+Date: 2024-08-11
+Description: Symptoms of heat exhaustion were reported by a worker in Plant C on 2024-08-11.
+Incident Type: electrical
+Cause: Equipment

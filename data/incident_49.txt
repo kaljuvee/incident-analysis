@@ -1,0 +1,6 @@
+Incident ID: 49
+Plant: Plant C
+Date: 2024-05-08
+Description: Symptoms of heat exhaustion were reported by a worker in Plant C on 2024-05-08.
+Incident Type: fire
+Cause: Environment

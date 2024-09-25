@@ -1,0 +1,6 @@
+Incident ID: 23
+Plant: Plant B
+Date: 2024-02-26
+Description: A near-miss incident was reported on 2024-02-26 at Plant B.
+Incident Type: injury
+Cause: Environment

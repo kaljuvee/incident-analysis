@@ -1,0 +1,6 @@
+Incident ID: 25
+Plant: Plant D
+Date: 2024-06-26
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-06-26.
+Incident Type: ventilation
+Cause: Equipment

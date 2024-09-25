@@ -1,4 +1,0 @@
-{
-    "incident_id": 64,
-    "incident_report": "Fire alarm triggered in Plant B on 2024-09-15 due to smoke from an overheated boiler. The sprinkler system activated, causing minimal water damage. Production was halted for 7 hours."
-}

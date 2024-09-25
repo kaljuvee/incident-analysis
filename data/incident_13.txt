@@ -1,0 +1,6 @@
+Incident ID: 13
+Plant: Plant A
+Date: 2024-05-07
+Description: A near-miss incident was reported on 2024-05-07 at Plant A.
+Incident Type: chemical spill
+Cause: Human error

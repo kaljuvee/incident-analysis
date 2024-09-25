@@ -1,4 +1,0 @@
-{
-    "incident_id": 68,
-    "incident_report": "Employee reported dizziness and nausea in Plant A's packaging area on 2024-03-05. Investigation revealed a malfunctioning ventilation system. The area was evacuated and maintenance was called."
-}

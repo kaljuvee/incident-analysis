@@ -1,0 +1,6 @@
+Incident ID: 20
+Plant: Plant D
+Date: 2024-08-26
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-08-26.
+Incident Type: heat exhaustion
+Cause: Environment

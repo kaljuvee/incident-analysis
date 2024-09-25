@@ -1,0 +1,6 @@
+Incident ID: 8
+Plant: Plant A
+Date: 2024-06-01
+Description: A fire alarm was triggered in Plant A's assembly line on 2024-06-01.
+Incident Type: injury
+Cause: Environment

@@ -1,6 +1,4 @@
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 from datetime import datetime
 import json
@@ -11,10 +9,9 @@ import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 from gptcache import cache
-from transformers import AutoTokenizer, AutoModel
-import torch
 import faiss
 from typing import List, Dict
+from difflib import SequenceMatcher
 
 # Load environment variables and set up OpenAI client
 load_dotenv()
@@ -45,6 +42,42 @@ if 'tokenizer' not in st.session_state:
 if 'model' not in st.session_state:
     st.session_state.model = None
 
+ORIG_INCIDENT_TYPES = [
+    'slip', 'fire', 'safety violation', 'chemical spill', 'injury', 'near-miss',
+    'electrical', 'ventilation', 'falling object', 'heat exhaustion'
+]
+
+# Add this new function for comparing incident types
+def compare_incident_types(original, discovered):
+    original_formatted = [o.replace(' ', '_').replace('-', '_') for o in original]
+    
+    # Find exact matches
+    exact_matches = set(original_formatted) & set(discovered)
+    
+    # Find close matches for non-exact matches
+    close_matches = []
+    unmatched_original = [o for o in original_formatted if o not in exact_matches]
+    unmatched_discovered = [d for d in discovered if d not in exact_matches]
+    
+    for o in unmatched_original:
+        best_match = None
+        best_ratio = 0
+        for d in unmatched_discovered:
+            ratio = SequenceMatcher(None, o, d).ratio()
+            if ratio > best_ratio and ratio > 0.6:  # Adjust threshold as needed
+                best_ratio = ratio
+                best_match = d
+        if best_match:
+            close_matches.append((o, best_match))
+            unmatched_discovered.remove(best_match)
+    
+    return {
+        'exact_matches': list(exact_matches),
+        'close_matches': close_matches,
+        'unmatched_original': [o for o in unmatched_original if o not in [m[0] for m in close_matches]],
+        'unmatched_discovered': unmatched_discovered
+    }
+
 # Simple text chunker
 def chunk_text(text: str, chunk_size: int = 200, overlap: int = 50) -> List[str]:
     words = text.split()
@@ -58,11 +91,11 @@ def chunk_text(text: str, chunk_size: int = 200, overlap: int = 50) -> List[str]
 @st.cache_data
 def load_documents(directory: str) -> List[Dict[str, str]]:
     documents = []
-    for filename in glob.glob(os.path.join(directory, 'incident_*.json')):
+    for filename in glob.glob(os.path.join(directory, '*.txt')):
         with open(filename, 'r') as f:
-            data = json.load(f)
+            content = f.read()
             documents.append({
-                'content': data['incident_report'],
+                'content': content,
                 'source': filename
             })
     return documents
@@ -109,7 +142,12 @@ def retrieve_relevant_docs(query: str, top_k: int = 5):
     return [st.session_state.processed_documents[i] for i in indices[0]]
 # New function to discover incident types
 def discover_incident_types(documents, num_docs):
-    prompt = f"Analyze the following incident reports and list all unique incident types you can identify. List only the incident types found, separated by commas:\n\n"
+    prompt = f"""Analyze the following incident reports and list all unique incident types you can identify. 
+    List only the incident types found, separated by commas. 
+    Format multi-word types as word_anotherword (e.g., 'safety violation' should be 'safety_violation').
+    Here are some example formats: slip, fire, safety_violation, chemical_spill, injury, near_miss, 
+    electrical, ventilation, falling_object, heat_exhaustion.\n\n
+    """
     prompt += "\n\n".join([doc['content'] for doc in documents[:num_docs]])
     
     gpt_model = st.session_state.gpt_model
@@ -204,7 +242,7 @@ st.session_state.use_chunking = st.sidebar.radio("Document Processing", ["Full D
 if st.session_state.documents is None:
     if st.button("Load Documents"):
         with st.spinner("Loading documents..."):
-            st.session_state.documents = load_documents('data/incidents/')
+            st.session_state.documents = load_documents('data')
         st.success("Documents loaded successfully!")
 else:
     st.success("Documents are already loaded.")
@@ -260,6 +298,28 @@ if st.button("Discover Incident Types"):
             st.session_state.incident_types = discover_incident_types(st.session_state.processed_documents, num_docs_to_analyze)
         st.success("Incident types discovered successfully!")
         st.write("Discovered incident types:", st.session_state.incident_types)
+
+
+if st.button("Compare Incident Types"):
+    if st.session_state.incident_types is None:
+        st.warning("Please discover incident types first.")
+    else:
+        comparison = compare_incident_types(ORIG_INCIDENT_TYPES, st.session_state.incident_types)
+        
+        st.subheader("Incident Type Comparison")
+        
+        st.write("Exact Matches:")
+        st.write(", ".join(comparison['exact_matches']))
+        
+        st.write("Close Matches:")
+        for original, discovered in comparison['close_matches']:
+            st.write(f"- {original} ≈ {discovered}")
+        
+        st.write("Unmatched Original Types:")
+        st.write(", ".join(comparison['unmatched_original']))
+        
+        st.write("Unmatched Discovered Types:")
+        st.write(", ".join(comparison['unmatched_discovered']))
 
 # Button to count incidents
 if st.button("Count Incidents"):

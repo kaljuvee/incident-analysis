@@ -1,0 +1,6 @@
+Incident ID: 1
+Plant: Plant D
+Date: 2024-06-03
+Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-06-03.
+Incident Type: safety violation
+Cause: Unknown

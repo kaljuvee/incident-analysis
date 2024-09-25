@@ -1,0 +1,6 @@
+Incident ID: 82
+Plant: Plant A
+Date: 2024-09-02
+Description: A near-miss incident was reported on 2024-09-02 at Plant A.
+Incident Type: ventilation
+Cause: Equipment

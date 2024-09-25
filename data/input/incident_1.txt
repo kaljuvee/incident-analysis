@@ -1,4 +1,0 @@
-{
-    "incident_id": 1,
-    "incident_report": "On 2024-06-21, a contractor working on roof repairs in Plant B reported symptoms of heat exhaustion. The incident prompted a review of working conditions for outdoor tasks and implementation of mandatory rest periods during high temperature days."
-}

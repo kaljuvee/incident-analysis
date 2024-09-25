@@ -1,4 +1,0 @@
-{
-    "incident_id": 26,
-    "incident_report": "Minor chemical spill reported in Plant A's laboratory on 2024-06-23. The spill was contained within the designated safety area and cleaned up according to protocol. No injuries or exposure occurred."
-}

@@ -1,0 +1,6 @@
+Incident ID: 22
+Plant: Plant A
+Date: 2024-05-24
+Description: Employee reported dizziness and nausea in Plant A's packaging area on 2024-05-24.
+Incident Type: near-miss
+Cause: Unknown

@@ -1,0 +1,6 @@
+Incident ID: 2
+Plant: Plant C
+Date: 2024-02-14
+Description: On 2024-02-14, a worker in Plant C's production area tripped over an unmarked hazard.
+Incident Type: ventilation
+Cause: Human error

@@ -1,0 +1,6 @@
+Incident ID: 11
+Plant: Plant A
+Date: 2024-01-10
+Description: A near-miss incident was reported on 2024-01-10 at Plant A.
+Incident Type: electrical
+Cause: Equipment

@@ -1,0 +1,6 @@
+Incident ID: 33
+Plant: Plant C
+Date: 2024-04-08
+Description: Employee reported dizziness and nausea in Plant C's packaging area on 2024-04-08.
+Incident Type: electrical
+Cause: Environment

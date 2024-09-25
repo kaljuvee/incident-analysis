@@ -1,0 +1,6 @@
+Incident ID: 78
+Plant: Plant C
+Date: 2024-09-18
+Description: On 2024-09-18, a worker in Plant C's production area tripped over an unmarked hazard.
+Incident Type: fire
+Cause: Equipment

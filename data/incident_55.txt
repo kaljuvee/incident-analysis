@@ -1,0 +1,6 @@
+Incident ID: 55
+Plant: Plant D
+Date: 2024-06-05
+Description: A fire alarm was triggered in Plant D's assembly line on 2024-06-05.
+Incident Type: fire
+Cause: Environment

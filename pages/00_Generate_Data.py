@@ -14,7 +14,7 @@ fake = Faker()
 # Incident types and causes
 incident_types = [
     'slip', 'fire', 'safety violation', 'chemical spill', 'injury', 'near-miss', 
-    'electrical', 'ventilation', 'falling object', 'heat exhaustion', 'other'
+    'electrical', 'ventilation', 'falling object', 'heat exhaustion'
 ]
 incident_causes = ['Human error', 'Equipment', 'Environment', 'Unknown']
 plants = ['Plant A', 'Plant B', 'Plant C', 'Plant D']
@@ -27,8 +27,6 @@ incident_descriptions = [
     "A near-miss incident was reported on {date} at {plant}.",
     "Symptoms of heat exhaustion were reported by a worker in {plant} on {date}."
 ]
-
-import plotly.express as px
 
 # Function to plot incident statistics using Plotly
 def plot_incident_stats(df):
@@ -53,6 +51,22 @@ def plot_incident_stats(df):
     incidents_by_cause_melted = incidents_by_cause_df.reset_index().melt(id_vars="Incident Type", var_name="Cause", value_name="Count")
     fig_cause = px.bar(incidents_by_cause_melted, x="Incident Type", y="Count", color="Cause", barmode="stack", title="Incident Count by Cause")
     st.plotly_chart(fig_cause)
+
+    st.subheader("Incident Frequency by Type")
+    
+    # Calculate and display incident frequency by type
+    incident_freq_df = incident_frequency_by_type(df)
+    incident_freq_df.columns = ['Incident Type', 'Frequency']
+    st.write(incident_freq_df)
+
+    # Plot for Incident Frequency by Type
+    fig_freq = px.bar(incident_freq_df, x="Incident Type", y="Frequency", title="Incident Frequency by Type")
+    st.plotly_chart(fig_freq)
+
+    # Save incident frequency data to CSV in the data folder
+    os.makedirs('data', exist_ok=True)
+    incident_freq_df.to_csv('data/incident_type_frequency.csv', index=False)
+    st.success("Incident frequency data saved to 'data/incident_type_frequency.csv'")
 
 # Function to generate a synthetic document
 def generate_synthetic_document(incident_id, plant):
@@ -88,6 +102,10 @@ def incidents_by_cause(df):
 def incident_cause_by_location(df):
     return df.groupby(['Incident Type', 'Plant']).size().unstack(fill_value=0)
 
+# New function to calculate incident frequency by type
+def incident_frequency_by_type(df):
+    return df['Incident Type'].value_counts().reset_index()
+
 # Create a zip file from the dataframe and return as bytes
 def create_zip_from_df(df):
     # Create a buffer for the zip file
@@ -98,7 +116,13 @@ def create_zip_from_df(df):
         for index, row in df.iterrows():
             # Generate content for each incident report
             incident_content = f"Incident ID: {row['Incident ID']}\nPlant: {row['Plant']}\nDate: {row['Date']}\nDescription: {row['Description']}\nIncident Type: {row['Incident Type']}\nCause: {row['Cause']}\n"
-            zf.writestr(f"incident_{row['Incident ID']}.txt", incident_content)
+            filename = f"incident_{row['Incident ID']}.txt"
+            zf.writestr(filename, incident_content)
+            
+            # Save the file locally in the data directory
+            os.makedirs('data', exist_ok=True)
+            with open(os.path.join('data', filename), 'w') as f:
+                f.write(incident_content)
     
     # Reset the buffer's position to the beginning
     zip_buffer.seek(0)
@@ -144,18 +168,22 @@ if st.button("Generate"):
     # Generate a summary CSV
     csv = df_filtered.to_csv(index=False).encode('utf-8')
     st.download_button("Download Data as CSV", csv, "incident_data.csv", "text/csv")
+    
     # Create and offer ZIP download
     zip_buffer = create_zip_from_df(df_filtered)
     
-    # Generate the first ZIP file
+    # Generate the ZIP file
     st.download_button(
         label="Download Data as ZIP",
         data=zip_buffer,
         file_name="incident_data.zip",
         mime="application/zip"
     )
+
     # Number of incidents over date/time
     st.subheader("Number of Incidents Over Time")
     df_filtered['Date'] = pd.to_datetime(df_filtered['Date'])
     incidents_over_time = df_filtered.groupby(df_filtered['Date'].dt.to_period('M')).size()
     st.line_chart(incidents_over_time)
+
+    # The file is now saved directly to the data folder

@@ -1,0 +1,6 @@
+Incident ID: 24
+Plant: Plant A
+Date: 2024-03-20
+Description: Employee reported dizziness and nausea in Plant A's packaging area on 2024-03-20.
+Incident Type: falling object
+Cause: Human error

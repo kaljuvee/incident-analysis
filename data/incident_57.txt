@@ -1,0 +1,6 @@
+Incident ID: 57
+Plant: Plant A
+Date: 2024-07-06
+Description: Employee reported dizziness and nausea in Plant A's packaging area on 2024-07-06.
+Incident Type: ventilation
+Cause: Equipment

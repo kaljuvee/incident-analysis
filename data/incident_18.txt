@@ -1,0 +1,6 @@
+Incident ID: 18
+Plant: Plant C
+Date: 2024-06-03
+Description: A fire alarm was triggered in Plant C's assembly line on 2024-06-03.
+Incident Type: electrical
+Cause: Environment

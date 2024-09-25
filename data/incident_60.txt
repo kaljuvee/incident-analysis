@@ -1,0 +1,6 @@
+Incident ID: 60
+Plant: Plant B
+Date: 2024-08-21
+Description: On 2024-08-21, a worker in Plant B's production area tripped over an unmarked hazard.
+Incident Type: injury
+Cause: Unknown

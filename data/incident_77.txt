@@ -1,0 +1,6 @@
+Incident ID: 77
+Plant: Plant B
+Date: 2024-02-01
+Description: A near-miss incident was reported on 2024-02-01 at Plant B.
+Incident Type: ventilation
+Cause: Equipment

@@ -1,0 +1,6 @@
+Incident ID: 16
+Plant: Plant B
+Date: 2024-07-28
+Description: A near-miss incident was reported on 2024-07-28 at Plant B.
+Incident Type: fire
+Cause: Unknown

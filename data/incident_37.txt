@@ -1,0 +1,6 @@
+Incident ID: 37
+Plant: Plant B
+Date: 2024-01-28
+Description: A near-miss incident was reported on 2024-01-28 at Plant B.
+Incident Type: heat exhaustion
+Cause: Environment

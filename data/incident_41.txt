@@ -1,0 +1,6 @@
+Incident ID: 41
+Plant: Plant B
+Date: 2024-06-10
+Description: On 2024-06-10, a worker in Plant B's production area tripped over an unmarked hazard.
+Incident Type: safety violation
+Cause: Unknown

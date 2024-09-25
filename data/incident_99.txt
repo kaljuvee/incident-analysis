@@ -1,0 +1,6 @@
+Incident ID: 99
+Plant: Plant D
+Date: 2024-09-22
+Description: On 2024-09-22, a worker in Plant D's production area tripped over an unmarked hazard.
+Incident Type: heat exhaustion
+Cause: Human error

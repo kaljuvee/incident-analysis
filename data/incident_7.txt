@@ -1,0 +1,6 @@
+Incident ID: 7
+Plant: Plant D
+Date: 2024-07-17
+Description: A near-miss incident was reported on 2024-07-17 at Plant D.
+Incident Type: fire
+Cause: Environment

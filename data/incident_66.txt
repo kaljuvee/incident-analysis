@@ -1,0 +1,6 @@
+Incident ID: 66
+Plant: Plant B
+Date: 2024-01-23
+Description: A near-miss incident was reported on 2024-01-23 at Plant B.
+Incident Type: safety violation
+Cause: Environment

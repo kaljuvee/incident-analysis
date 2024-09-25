@@ -1,0 +1,6 @@
+Incident ID: 51
+Plant: Plant C
+Date: 2024-04-19
+Description: On 2024-04-19, a worker in Plant C's production area tripped over an unmarked hazard.
+Incident Type: heat exhaustion
+Cause: Human error

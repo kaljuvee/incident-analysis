@@ -1,0 +1,6 @@
+Incident ID: 87
+Plant: Plant D
+Date: 2024-01-18
+Description: A fire alarm was triggered in Plant D's assembly line on 2024-01-18.
+Incident Type: near-miss
+Cause: Unknown
