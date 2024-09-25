@@ -1,6 +1,0 @@
-Incident ID: 8
-Plant: Plant C
-Date: 2024-01-20
-Description: A fire alarm was triggered in Plant C's assembly line on 2024-01-20.
-Incident Type: electrical
-Cause: Human error

@@ -1,6 +1,0 @@
-Incident ID: 52
-Plant: Plant C
-Date: 2024-08-23
-Description: A near-miss incident was reported on 2024-08-23 at Plant C.
-Incident Type: chemical_spill
-Cause: Unknown

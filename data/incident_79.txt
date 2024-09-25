@@ -1,6 +1,0 @@
-Incident ID: 79
-Plant: Plant D
-Date: 2024-05-26
-Description: Employee reported dizziness and nausea in Plant D's packaging area on 2024-05-26.
-Incident Type: fire
-Cause: Equipment

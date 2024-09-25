@@ -1,6 +1,0 @@
-Incident ID: 31
-Plant: Plant C
-Date: 2024-05-13
-Description: A fire alarm was triggered in Plant C's assembly line on 2024-05-13.
-Incident Type: near_miss
-Cause: Unknown

@@ -1,6 +1,0 @@
-Incident ID: 65
-Plant: Plant B
-Date: 2024-04-10
-Description: On 2024-04-10, a worker in Plant B's production area tripped over an unmarked hazard.
-Incident Type: near_miss
-Cause: Unknown

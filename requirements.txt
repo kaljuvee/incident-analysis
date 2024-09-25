@@ -19,3 +19,4 @@ gptcache
 transformers
 torch
 faiss-cpu
+openai

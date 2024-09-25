@@ -1,6 +1,0 @@
-Incident ID: 16
-Plant: Plant D
-Date: 2024-01-30
-Description: A near-miss incident was reported on 2024-01-30 at Plant D.
-Incident Type: ventilation
-Cause: Unknown

@@ -1,6 +1,0 @@
-Incident ID: 53
-Plant: Plant A
-Date: 2024-09-09
-Description: A near-miss incident was reported on 2024-09-09 at Plant A.
-Incident Type: falling_object
-Cause: Human error

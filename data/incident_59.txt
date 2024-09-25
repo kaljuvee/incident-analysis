@@ -1,6 +1,0 @@
-Incident ID: 59
-Plant: Plant A
-Date: 2024-01-09
-Description: A near-miss incident was reported on 2024-01-09 at Plant A.
-Incident Type: electrical
-Cause: Equipment

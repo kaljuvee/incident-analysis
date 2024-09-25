@@ -1,6 +1,0 @@
-Incident ID: 38
-Plant: Plant A
-Date: 2024-05-09
-Description: On 2024-05-09, a worker in Plant A's production area tripped over an unmarked hazard.
-Incident Type: slip
-Cause: Environment

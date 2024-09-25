@@ -1,6 +1,0 @@
-Incident ID: 92
-Plant: Plant D
-Date: 2024-07-26
-Description: A fire alarm was triggered in Plant D's assembly line on 2024-07-26.
-Incident Type: safety_violation
-Cause: Equipment

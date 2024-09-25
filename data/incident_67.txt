@@ -1,6 +1,0 @@
-Incident ID: 67
-Plant: Plant B
-Date: 2024-04-12
-Description: A fire alarm was triggered in Plant B's assembly line on 2024-04-12.
-Incident Type: ventilation
-Cause: Environment

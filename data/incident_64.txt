@@ -1,6 +1,0 @@
-Incident ID: 64
-Plant: Plant B
-Date: 2024-09-20
-Description: A fire alarm was triggered in Plant B's assembly line on 2024-09-20.
-Incident Type: fire
-Cause: Equipment

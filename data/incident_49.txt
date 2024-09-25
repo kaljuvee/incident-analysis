@@ -1,6 +1,0 @@
-Incident ID: 49
-Plant: Plant C
-Date: 2024-07-30
-Description: Employee reported dizziness and nausea in Plant C's packaging area on 2024-07-30.
-Incident Type: chemical_spill
-Cause: Human error

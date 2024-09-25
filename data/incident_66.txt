@@ -1,6 +1,0 @@
-Incident ID: 66
-Plant: Plant A
-Date: 2024-07-15
-Description: A fire alarm was triggered in Plant A's assembly line on 2024-07-15.
-Incident Type: chemical_spill
-Cause: Unknown

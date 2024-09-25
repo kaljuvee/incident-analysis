@@ -1,6 +1,0 @@
-Incident ID: 70
-Plant: Plant B
-Date: 2024-01-21
-Description: A near-miss incident was reported on 2024-01-21 at Plant B.
-Incident Type: chemical_spill
-Cause: Human error

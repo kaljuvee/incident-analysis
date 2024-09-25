@@ -1,6 +1,0 @@
-Incident ID: 43
-Plant: Plant A
-Date: 2024-03-19
-Description: Employee reported dizziness and nausea in Plant A's packaging area on 2024-03-19.
-Incident Type: fire
-Cause: Human error

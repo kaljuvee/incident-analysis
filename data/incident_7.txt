@@ -1,6 +1,0 @@
-Incident ID: 7
-Plant: Plant A
-Date: 2024-09-07
-Description: A fire alarm was triggered in Plant A's assembly line on 2024-09-07.
-Incident Type: slip
-Cause: Environment

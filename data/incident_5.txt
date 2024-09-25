@@ -1,6 +1,0 @@
-Incident ID: 5
-Plant: Plant C
-Date: 2024-07-21
-Description: A near-miss incident was reported on 2024-07-21 at Plant C.
-Incident Type: safety_violation
-Cause: Equipment

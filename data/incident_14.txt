@@ -1,6 +1,0 @@
-Incident ID: 14
-Plant: Plant C
-Date: 2024-04-12
-Description: On 2024-04-12, a worker in Plant C's production area tripped over an unmarked hazard.
-Incident Type: heat_exhaustion
-Cause: Unknown

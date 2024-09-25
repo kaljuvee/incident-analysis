@@ -1,6 +1,0 @@
-Incident ID: 46
-Plant: Plant A
-Date: 2024-05-24
-Description: On 2024-05-24, a worker in Plant A's production area tripped over an unmarked hazard.
-Incident Type: fire
-Cause: Equipment

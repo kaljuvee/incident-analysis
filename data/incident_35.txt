@@ -1,6 +1,0 @@
-Incident ID: 35
-Plant: Plant C
-Date: 2024-01-31
-Description: A near-miss incident was reported on 2024-01-31 at Plant C.
-Incident Type: slip
-Cause: Environment

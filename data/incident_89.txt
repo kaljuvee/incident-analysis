@@ -1,6 +1,0 @@
-Incident ID: 89
-Plant: Plant D
-Date: 2024-06-22
-Description: On 2024-06-22, a worker in Plant D's production area tripped over an unmarked hazard.
-Incident Type: safety_violation
-Cause: Unknown

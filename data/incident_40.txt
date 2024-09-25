@@ -1,6 +1,0 @@
-Incident ID: 40
-Plant: Plant A
-Date: 2024-05-28
-Description: Symptoms of heat exhaustion were reported by a worker in Plant A on 2024-05-28.
-Incident Type: ventilation
-Cause: Environment

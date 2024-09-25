@@ -1,6 +1,0 @@
-Incident ID: 57
-Plant: Plant B
-Date: 2024-09-16
-Description: Employee reported dizziness and nausea in Plant B's packaging area on 2024-09-16.
-Incident Type: chemical_spill
-Cause: Equipment

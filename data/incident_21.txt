@@ -1,6 +1,0 @@
-Incident ID: 21
-Plant: Plant B
-Date: 2024-07-09
-Description: On 2024-07-09, a worker in Plant B's production area tripped over an unmarked hazard.
-Incident Type: slip
-Cause: Human error

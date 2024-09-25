@@ -1,6 +1,0 @@
-Incident ID: 60
-Plant: Plant D
-Date: 2024-09-06
-Description: Symptoms of heat exhaustion were reported by a worker in Plant D on 2024-09-06.
-Incident Type: near_miss
-Cause: Unknown
