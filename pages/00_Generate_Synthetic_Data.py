@@ -1,15 +1,16 @@
-import os
 import random
 import pandas as pd
 import streamlit as st
 from faker import Faker
-from zipfile import ZipFile
-from io import BytesIO
-from datetime import datetime
 import plotly.express as px
+import json
+from utils.db_util import store_documents, read_documents_by_dataset, create_tables, get_datasets_with_counts
 
 # Initialize Faker
 fake = Faker()
+
+# Ensure database tables are created
+create_tables()
 
 # Incident types and causes
 incident_types = [
@@ -64,11 +65,6 @@ def plot_incident_stats(df):
     fig_freq = px.bar(incident_freq_df, x="Incident Type", y="Frequency", title="Incident Frequency by Type")
     st.plotly_chart(fig_freq)
 
-    # Save incident frequency data to CSV in the data folder
-    os.makedirs('data', exist_ok=True)
-    incident_freq_df.to_csv('data/incident_type_frequency.csv', index=False)
-    st.success("Incident frequency data saved to 'data/incident_type_frequency.csv'")
-
 # Function to generate a synthetic document
 def generate_synthetic_document(incident_id, plant):
     date = fake.date_this_year()
@@ -77,7 +73,7 @@ def generate_synthetic_document(incident_id, plant):
     incident_report = {
         'Incident ID': incident_id,
         'Plant': plant,
-        'Date': date,
+        'Date': str(date),  # Convert to string for JSON serialization
         'Description': description
     }
     return incident_report
@@ -85,6 +81,7 @@ def generate_synthetic_document(incident_id, plant):
 # Generate documents and return DataFrame
 def generate_documents(num_documents):
     data = []
+    documents_to_store = []
     for i in range(1, num_documents + 1):
         incident_type = random.choice(incident_types)
         cause = random.choice(incident_causes)
@@ -93,7 +90,12 @@ def generate_documents(num_documents):
         document['Incident Type'] = incident_type
         document['Cause'] = cause
         data.append(document)
-    return pd.DataFrame(data)
+        documents_to_store.append(json.dumps(document))  # Convert to JSON string for storage
+    
+    # Store documents in the database and get the data_set_id
+    data_set_id = store_documents(documents_to_store)
+    
+    return pd.DataFrame(data), data_set_id
 
 # Incident count by cause summary
 def incidents_by_cause(df):
@@ -107,84 +109,52 @@ def incident_cause_by_location(df):
 def incident_frequency_by_type(df):
     return df['Incident Type'].value_counts().reset_index()
 
-# Create a zip file from the dataframe and return as bytes
-def create_zip_from_df(df):
-    # Create a buffer for the zip file
-    zip_buffer = BytesIO()
-    
-    with ZipFile(zip_buffer, "w") as zf:
-        # Add each document to the zip file as a separate text file
-        for index, row in df.iterrows():
-            # Generate content for each incident report
-            incident_content = f"Incident ID: {row['Incident ID']}\nPlant: {row['Plant']}\nDate: {row['Date']}\nDescription: {row['Description']}\nIncident Type: {row['Incident Type']}\nCause: {row['Cause']}\n"
-            filename = f"incident_{row['Incident ID']}.txt"
-            zf.writestr(filename, incident_content)
-            
-            # Save the file locally in the data directory
-            os.makedirs('data', exist_ok=True)
-            with open(os.path.join('data', filename), 'w') as f:
-                f.write(incident_content)
-    
-    # Reset the buffer's position to the beginning
-    zip_buffer.seek(0)
-    return zip_buffer
-
 # Streamlit UI starts here
-st.title("Generate Synthetic Incident Data")
+st.title("Generate and View Synthetic Incident Data")
 
-# Multiselect for incident types, causes, and plants
-selected_incident_types = st.multiselect("Select Incident Types", incident_types, default=incident_types)
-selected_causes = st.multiselect("Select Causes", incident_causes, default=incident_causes)
-selected_plants = st.multiselect("Select Plants", plants, default=plants)
-
-# Select number of documents
+# Dropdown to select number of documents to generate
 num_documents = st.selectbox(
     "Select number of documents to generate:",
-    [100, 1000, 10000, 100000, 1000000]
+    [100, 1000, 10000, 1000000],
+    key="num_documents"
 )
 
-# Debug statement to check if Streamlit is working
-st.write("Ready to generate data...")
-
-# Generate sample data
-if st.button("Generate"):
+# Button to generate new data
+if st.button("Generate New Data", key="generate_button"):
     st.write(f"Generating {num_documents} documents...")
-    
-    # Generate documents based on selections
-    df = generate_documents(num_documents)
+    df, data_set_id = generate_documents(num_documents)
+    st.success(f"Successfully generated and stored {num_documents} documents in the database with data_set_id: {data_set_id}")
 
-    # Filter by selected types, causes, and plants
-    df_filtered = df[
-        (df['Incident Type'].isin(selected_incident_types)) &
-        (df['Cause'].isin(selected_causes)) &
-        (df['Plant'].isin(selected_plants))
-    ]
+# Get datasets with document counts
+datasets_with_counts = get_datasets_with_counts()
 
-    # Show a sample of up to 100 records
-    st.subheader("Sample Data (Up to 100 Records)")
-    st.dataframe(df_filtered.head(100))
-
-    plot_incident_stats(df_filtered)
+if not datasets_with_counts:
+    st.warning("No datasets found in the database.")
+else:
+    # Create a dictionary for the selectbox options
+    dataset_options = {f"{data_set_id} ({count} documents)": data_set_id for data_set_id, count in datasets_with_counts}
     
-    # Generate a summary CSV
-    csv = df_filtered.to_csv(index=False).encode('utf-8')
-    st.download_button("Download Data as CSV", csv, "incident_data.csv", "text/csv")
-    
-    # Create and offer ZIP download
-    zip_buffer = create_zip_from_df(df_filtered)
-    
-    # Generate the ZIP file
-    st.download_button(
-        label="Download Data as ZIP",
-        data=zip_buffer,
-        file_name="incident_data.zip",
-        mime="application/zip"
+    selected_dataset_option = st.selectbox(
+        "Select a dataset to view",
+        options=list(dataset_options.keys()),
+        key="existing_dataset"
     )
+    
+    # Extract the actual dataset ID from the selected option
+    selected_dataset = dataset_options[selected_dataset_option]
 
-    # Number of incidents over date/time
-    st.subheader("Number of Incidents Over Time")
-    df_filtered['Date'] = pd.to_datetime(df_filtered['Date'])
-    incidents_over_time = df_filtered.groupby(df_filtered['Date'].dt.to_period('M')).size()
-    st.line_chart(incidents_over_time)
+    if st.button("View data", key="view_data_button"):
+        documents = read_documents_by_dataset(selected_dataset)
+        df = pd.DataFrame([json.loads(doc) for doc in documents])
+        
+        st.subheader(f"Data from Dataset: {selected_dataset}")
+        st.dataframe(df.head(100))
 
-    # The file is now saved directly to the data folder
+        # Display statistics and plots
+        plot_incident_stats(df)
+
+        # Number of incidents over date/time
+        st.subheader("Number of Incidents Over Time")
+        df['Date'] = pd.to_datetime(df['Date'])
+        incidents_over_time = df.groupby(df['Date'].dt.to_period('M')).size()
+        st.line_chart(incidents_over_time)
