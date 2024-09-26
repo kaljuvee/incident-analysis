@@ -83,11 +83,13 @@ def create_faiss_index(embeddings: np.ndarray):
 
 def save_embeddings_and_index(embeddings, index, processed_documents, dataset_id):
     os.makedirs('embeddings', exist_ok=True)
-    with open(f'embeddings/embeddings_{dataset_id}.pkl', 'wb') as f:
+    with open(f'embeddings/{dataset_id}_embeddings.pkl', 'wb') as f:
         pickle.dump(embeddings, f)
-    faiss.write_index(index, f'embeddings/index_{dataset_id}.bin')
-    with open(f'embeddings/processed_documents_{dataset_id}.pkl', 'wb') as f:
+    faiss.write_index(index, f'embeddings/{dataset_id}_index.bin')
+    with open(f'embeddings/{dataset_id}_processed_documents.pkl', 'wb') as f:
         pickle.dump(processed_documents, f)
+    st.success(f"Embeddings and index saved successfully for dataset {dataset_id}!")
+
 
 # Streamlit app
 st.title("Create Embeddings and Index for Incident Analysis")

@@ -12,10 +12,10 @@ client = OpenAI()
 
 def load_embeddings_and_index(dataset_id):
     try:
-        with open(f'embeddings/embeddings_{dataset_id}.pkl', 'rb') as f:
+        with open(f'embeddings/{dataset_id}_embeddings.pkl', 'rb') as f:
             embeddings = pickle.load(f)
-        index = faiss.read_index(f'embeddings/index_{dataset_id}.bin')
-        with open(f'embeddings/processed_documents_{dataset_id}.pkl', 'rb') as f:
+        index = faiss.read_index(f'embeddings/{dataset_id}_index.bin')
+        with open(f'embeddings/{dataset_id}_processed_documents.pkl', 'rb') as f:
             processed_documents = pickle.load(f)
         return embeddings, index, processed_documents
     except FileNotFoundError:
