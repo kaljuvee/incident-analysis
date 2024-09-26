@@ -4,8 +4,8 @@ from datetime import datetime
 import re
 from typing import List, Dict
 from difflib import SequenceMatcher
-import pickle
 import json
+from utils.embeddings_util import select_embedding_index
 
 ORIG_INCIDENT_TYPES = [
     'slip', 'fire', 'safety_violation', 'chemical_spill', 'injury', 'near_miss',
@@ -109,11 +109,6 @@ def analyze_patterns(documents, incident_types):
         'incident_type_correlations': correlation_matrix.to_dict()
     }
 
-# Load saved data
-def load_data():
-    with open('processed_documents.pkl', 'rb') as f:
-        return pickle.load(f)
-
 # Load saved incident types
 def load_incident_types():
     try:
@@ -125,84 +120,84 @@ def load_incident_types():
 # Streamlit app
 st.title("Evaluate Incident Analysis")
 
-# Load saved data
-try:
-    st.session_state.processed_documents = load_data()
-    st.success("Processed documents loaded successfully!")
-except FileNotFoundError:
-    st.error("Saved data not found. Please run the Data Preparation and Ground Truth Analysis scripts first.")
-    st.stop()
+# Load embeddings and index
+selected_metadata, embeddings, index, processed_documents, embedding_model = select_embedding_index()
 
-# Load saved incident types
-saved_incident_types = load_incident_types()
-if saved_incident_types:
-    st.session_state.incident_types = saved_incident_types
-    st.success("Saved incident types loaded successfully!")
+if selected_metadata is not None:
+    st.success("Embeddings, index, and processed documents loaded successfully!")
+
+    # Load saved incident types
+    saved_incident_types = load_incident_types()
+    if saved_incident_types:
+        st.session_state.incident_types = saved_incident_types
+        st.success("Saved incident types loaded successfully!")
+    else:
+        st.warning("No saved incident types found. Please enter them manually or run the Ground Truth Analysis script first.")
+
+    # Input for incident types (only if not loaded from file)
+    if 'incident_types' not in st.session_state or not st.session_state.incident_types:
+        incident_types_input = st.text_input("Enter incident types (comma-separated):")
+        if incident_types_input:
+            st.session_state.incident_types = [t.strip() for t in incident_types_input.split(',')]
+
+    # Button to compare incident types
+    if st.button("Compare Incident Types"):
+        if 'incident_types' not in st.session_state or not st.session_state.incident_types:
+            st.warning("Please enter incident types first.")
+        else:
+            comparison = compare_incident_types(ORIG_INCIDENT_TYPES, st.session_state.incident_types)
+            
+            st.subheader("Incident Type Comparison")
+            
+            st.write("Exact Matches:")
+            st.write(", ".join(comparison['exact_matches']))
+            
+            st.write("Close Matches:")
+            for original, discovered in comparison['close_matches']:
+                st.write(f"- {original} ≈ {discovered}")
+            
+            st.write("Unmatched Original Types:")
+            st.write(", ".join(comparison['unmatched_original']))
+            
+            st.write("Unmatched Discovered Types:")
+            st.write(", ".join(comparison['unmatched_discovered']))
+
+    # Button to count incidents
+    if st.button("Count Incidents"):
+        if 'incident_types' not in st.session_state or not st.session_state.incident_types:
+            st.warning("Please enter incident types first.")
+        else:
+            with st.spinner("Counting incidents..."):
+                counts = count_incident_types(processed_documents, st.session_state.incident_types)
+            st.success("Incidents counted successfully!")
+            st.header("Incident Type Counts")
+            st.bar_chart(counts)
+
+    # Button to perform pattern analysis
+    if st.button("Analyze Patterns"):
+        if 'incident_types' not in st.session_state or not st.session_state.incident_types:
+            st.warning("Please enter incident types first.")
+        else:
+            with st.spinner("Analyzing patterns..."):
+                analysis_results = analyze_patterns(processed_documents, st.session_state.incident_types)
+            st.success("Pattern analysis completed successfully!")
+            
+            st.header("Pattern Analysis")
+            
+            st.subheader("Incident Rates per Plant")
+            st.bar_chart(analysis_results['incident_rates_per_plant'])
+            
+            st.subheader("Monthly Incident Counts")
+            st.line_chart(analysis_results['monthly_incident_counts'])
+            
+            st.subheader("Incident Type Correlations")
+            st.dataframe(analysis_results['incident_type_correlations'])
+            st.markdown('''
+            **Interpretation**:
+            
+            - Rows represent the initial incident type, and columns represent the subsequent incident type.
+            - Each number shows how many times an incident of the row type was followed by an incident of the column type.
+            - The diagonal (where row and column are the same) shows incidents of the same type occurring consecutively.
+            ''')
 else:
-    st.warning("No saved incident types found. Please enter them manually or run the Ground Truth Analysis script first.")
-
-# Input for incident types (only if not loaded from file)
-if 'incident_types' not in st.session_state or not st.session_state.incident_types:
-    incident_types_input = st.text_input("Enter incident types (comma-separated):")
-    if incident_types_input:
-        st.session_state.incident_types = [t.strip() for t in incident_types_input.split(',')]
-
-# Button to compare incident types
-if st.button("Compare Incident Types"):
-    if 'incident_types' not in st.session_state or not st.session_state.incident_types:
-        st.warning("Please enter incident types first.")
-    else:
-        comparison = compare_incident_types(ORIG_INCIDENT_TYPES, st.session_state.incident_types)
-        
-        st.subheader("Incident Type Comparison")
-        
-        st.write("Exact Matches:")
-        st.write(", ".join(comparison['exact_matches']))
-        
-        st.write("Close Matches:")
-        for original, discovered in comparison['close_matches']:
-            st.write(f"- {original} ≈ {discovered}")
-        
-        st.write("Unmatched Original Types:")
-        st.write(", ".join(comparison['unmatched_original']))
-        
-        st.write("Unmatched Discovered Types:")
-        st.write(", ".join(comparison['unmatched_discovered']))
-
-# Button to count incidents
-if st.button("Count Incidents"):
-    if 'incident_types' not in st.session_state or not st.session_state.incident_types:
-        st.warning("Please enter incident types first.")
-    else:
-        with st.spinner("Counting incidents..."):
-            counts = count_incident_types(st.session_state.processed_documents, st.session_state.incident_types)
-        st.success("Incidents counted successfully!")
-        st.header("Incident Type Counts")
-        st.bar_chart(counts)
-
-# Button to perform pattern analysis
-if st.button("Analyze Patterns"):
-    if 'incident_types' not in st.session_state or not st.session_state.incident_types:
-        st.warning("Please enter incident types first.")
-    else:
-        with st.spinner("Analyzing patterns..."):
-            analysis_results = analyze_patterns(st.session_state.processed_documents, st.session_state.incident_types)
-        st.success("Pattern analysis completed successfully!")
-        
-        st.header("Pattern Analysis")
-        
-        st.subheader("Incident Rates per Plant")
-        st.bar_chart(analysis_results['incident_rates_per_plant'])
-        
-        st.subheader("Monthly Incident Counts")
-        st.line_chart(analysis_results['monthly_incident_counts'])
-        
-        st.subheader("Incident Type Correlations")
-        st.dataframe(analysis_results['incident_type_correlations'])
-        st.markdown('''
-        **Interpretation**:
-        
-        - Rows represent the initial incident type, and columns represent the subsequent incident type.
-        - Each number shows how many times an incident of the row type was followed by an incident of the column type.
-        - The diagonal (where row and column are the same) shows incidents of the same type occurring consecutively.
-        ''')
+    st.error("Failed to load embeddings and index. Please run the Create Embeddings Index script first.")

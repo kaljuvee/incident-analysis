@@ -9,6 +9,8 @@ import pickle
 from utils.db_util import get_datasets_with_counts, read_documents_by_dataset
 import json
 import os
+import uuid
+from datetime import datetime
 
 # Load environment variables and set up OpenAI client
 load_dotenv()
@@ -18,9 +20,9 @@ cache.set_openai_key()
 
 # Define available models
 EMBEDDING_MODELS = [
-    "text-embedding-3-large",
     "text-embedding-ada-002",
-    "text-embedding-3-small"
+    "text-embedding-3-small",
+    "text-embedding-3-large"
 ]
 
 # Initialize session state variables
@@ -81,15 +83,33 @@ def create_faiss_index(embeddings: np.ndarray):
     index.add(embeddings)
     return index
 
-def save_embeddings_and_index(embeddings, index, processed_documents, dataset_id):
-    os.makedirs('embeddings', exist_ok=True)
-    with open(f'embeddings/{dataset_id}_embeddings.pkl', 'wb') as f:
-        pickle.dump(embeddings, f)
-    faiss.write_index(index, f'embeddings/{dataset_id}_index.bin')
-    with open(f'embeddings/{dataset_id}_processed_documents.pkl', 'wb') as f:
-        pickle.dump(processed_documents, f)
-    st.success(f"Embeddings and index saved successfully for dataset {dataset_id}!")
+def save_metadata(dataset_id, embedding_model, index_id):
+    metadata = {
+        "dataset_id": dataset_id,
+        "embedding_model": embedding_model,
+        "index_id": index_id,
+        "creation_date": datetime.now().isoformat()
+    }
+    with open(f'embeddings/{dataset_id}_{index_id}_metadata.json', 'w') as f:
+        json.dump(metadata, f)
 
+def save_embeddings_and_index(embeddings, index, processed_documents, dataset_id, embedding_model):
+    os.makedirs('embeddings', exist_ok=True)
+    index_id = str(uuid.uuid4())  # Generate a unique ID for this set of embeddings and index
+    
+    with open(f'embeddings/{dataset_id}_{index_id}_embeddings.pkl', 'wb') as f:
+        pickle.dump(embeddings, f)
+    faiss.write_index(index, f'embeddings/{dataset_id}_{index_id}_index.bin')
+    with open(f'embeddings/{dataset_id}_{index_id}_processed_documents.pkl', 'wb') as f:
+        pickle.dump(processed_documents, f)
+    
+    save_metadata(dataset_id, embedding_model, index_id)
+    
+    st.success(f"Embeddings and index saved successfully for dataset {dataset_id}!")
+    st.info(f"Index ID: {index_id}")
+
+def check_embeddings_exist(dataset_id):
+    return os.path.exists(f'embeddings/{dataset_id}_metadata.json')
 
 # Streamlit app
 st.title("Create Embeddings and Index for Incident Analysis")
@@ -133,27 +153,35 @@ else:
                 st.session_state.processed_documents = documents
                 st.success(f"Documents loaded successfully! Total documents: {len(st.session_state.processed_documents)}")
 
-# Step 2: Create embeddings
-if st.session_state.processed_documents is not None and st.session_state.embeddings is None:
-    if st.button("Create Embeddings"):
-        with st.spinner(f"Creating embeddings using {st.session_state.embedding_model}..."):
-            st.session_state.embeddings = create_embeddings(st.session_state.processed_documents, st.session_state.embedding_model)
-        st.success("Embeddings created successfully!")
-elif st.session_state.embeddings is not None:
-    st.success("Embeddings are already created.")
+    # Step 2: Create embeddings
+    embeddings_exist = check_embeddings_exist(selected_dataset)
+    if st.session_state.processed_documents is not None and not embeddings_exist:
+        if st.button("Create Embeddings"):
+            with st.spinner(f"Creating embeddings using {st.session_state.embedding_model}..."):
+                st.session_state.embeddings = create_embeddings(st.session_state.processed_documents, st.session_state.embedding_model)
+            st.success("Embeddings created successfully!")
+    elif embeddings_exist:
+        st.success("Embeddings already exist for this dataset.")
+    
+    # Step 3: Create FAISS index
+    if st.session_state.embeddings is not None and not embeddings_exist:
+        if st.button("Create Index"):
+            with st.spinner("Creating an index..."):
+                st.session_state.faiss_index = create_faiss_index(st.session_state.embeddings)
+            st.success("Index created successfully!")
+    elif embeddings_exist:
+        st.success("Index already exists for this dataset.")
 
-# Step 3: Create FAISS index
-if st.session_state.embeddings is not None and st.session_state.faiss_index is None:
-    if st.button("Create Index"):
-        with st.spinner("Creating an index..."):
-            st.session_state.faiss_index = create_faiss_index(st.session_state.embeddings)
-        st.success("Index created successfully!")
-elif st.session_state.faiss_index is not None:
-    st.success("Index is already created.")
-
-# Save embeddings and index
-if st.session_state.embeddings is not None and st.session_state.faiss_index is not None:
-    if st.button("Save Embeddings and Index"):
-        with st.spinner("Saving embeddings and index..."):
-            save_embeddings_and_index(st.session_state.embeddings, st.session_state.faiss_index, st.session_state.processed_documents, selected_dataset)
-        st.success(f"Embeddings and index saved successfully for dataset {selected_dataset}!")
+    # Save embeddings and index
+    if st.session_state.embeddings is not None and st.session_state.faiss_index is not None:
+        if st.button("Save Embeddings and Index"):
+            with st.spinner("Saving embeddings and index..."):
+                save_embeddings_and_index(
+                    st.session_state.embeddings, 
+                    st.session_state.faiss_index, 
+                    st.session_state.processed_documents, 
+                    selected_dataset,
+                    st.session_state.embedding_model
+                )
+    elif embeddings_exist:
+        st.info("Embeddings and index are already saved for this dataset.")
