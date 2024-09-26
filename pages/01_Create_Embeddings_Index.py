@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -9,6 +8,7 @@ from typing import List, Dict
 import pickle
 from utils.db_util import get_datasets_with_counts, read_documents_by_dataset
 import json
+import os
 
 # Load environment variables and set up OpenAI client
 load_dotenv()
@@ -18,9 +18,9 @@ cache.set_openai_key()
 
 # Define available models
 EMBEDDING_MODELS = [
+    "text-embedding-3-large",
     "text-embedding-ada-002",
-    "text-embedding-3-small",
-    "text-embedding-3-large"
+    "text-embedding-3-small"
 ]
 
 # Initialize session state variables
@@ -81,11 +81,12 @@ def create_faiss_index(embeddings: np.ndarray):
     index.add(embeddings)
     return index
 
-def save_embeddings_and_index(embeddings, index, processed_documents):
-    with open('embeddings.pkl', 'wb') as f:
+def save_embeddings_and_index(embeddings, index, processed_documents, dataset_id):
+    os.makedirs('embeddings', exist_ok=True)
+    with open(f'embeddings/embeddings_{dataset_id}.pkl', 'wb') as f:
         pickle.dump(embeddings, f)
-    faiss.write_index(index, 'faiss_index.bin')
-    with open('processed_documents.pkl', 'wb') as f:
+    faiss.write_index(index, f'embeddings/index_{dataset_id}.bin')
+    with open(f'embeddings/processed_documents_{dataset_id}.pkl', 'wb') as f:
         pickle.dump(processed_documents, f)
 
 # Streamlit app
@@ -152,5 +153,5 @@ elif st.session_state.faiss_index is not None:
 if st.session_state.embeddings is not None and st.session_state.faiss_index is not None:
     if st.button("Save Embeddings and Index"):
         with st.spinner("Saving embeddings and index..."):
-            save_embeddings_and_index(st.session_state.embeddings, st.session_state.faiss_index, st.session_state.processed_documents)
-        st.success("Embeddings and index saved successfully!")
+            save_embeddings_and_index(st.session_state.embeddings, st.session_state.faiss_index, st.session_state.processed_documents, selected_dataset)
+        st.success(f"Embeddings and index saved successfully for dataset {selected_dataset}!")
