@@ -12,12 +12,18 @@ fake = Faker()
 # Ensure database tables are created
 create_tables()
 
-# Incident types and causes
 incident_types = [
-    'slip', 'fire', 'safety_violation', 'chemical_spill', 'injury', 'near_miss',
-    'electrical', 'ventilation', 'falling_object', 'heat_exhaustion'
+    'Slip',
+    'Fire',
+    'Safety violation',
+    'Chemical spill',
+    'Injury',
+    'Near miss',
+    'Electrical',
+    'Ventilation',
+    'Falling object',
+    'Heat exhaustion'
 ]
-
 incident_causes = ['Human error', 'Equipment', 'Environment', 'Unknown']
 plants = ['Plant A', 'Plant B', 'Plant C', 'Plant D']
 
@@ -110,7 +116,7 @@ def incident_frequency_by_type(df):
     return df['Incident Type'].value_counts().reset_index()
 
 # Streamlit UI starts here
-st.title("Generate and View Synthetic Incident Data")
+st.title("Generate Synthetic Incident Data")
 
 # Dropdown to select number of documents to generate
 num_documents = st.selectbox(

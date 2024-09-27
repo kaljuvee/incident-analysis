@@ -1,0 +1,21 @@
+{
+  "index_id": "a804ca88-4a18-43b5-b42e-f089a6838030",
+  "incident_types": [
+    "Fire",
+    "Slip",
+    "Near miss",
+    "Heat exhaustion",
+    "Injury"
+  ],
+  "plants": [
+    "Plant A",
+    "Plant B",
+    "Plant C",
+    "Plant D"
+  ],
+  "causes": [
+    "Unmarked hazard",
+    "Unknown"
+  ],
+  "timestamp": "2024-09-27T15:49:00.966745"
+}

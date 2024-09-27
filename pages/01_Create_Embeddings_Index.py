@@ -20,9 +20,9 @@ cache.set_openai_key()
 
 # Define available models
 EMBEDDING_MODELS = [
+    "text-embedding-3-large",
     "text-embedding-ada-002",
-    "text-embedding-3-small",
-    "text-embedding-3-large"
+    "text-embedding-3-small"
 ]
 
 # Initialize session state variables
