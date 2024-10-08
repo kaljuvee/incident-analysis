@@ -135,7 +135,8 @@ datasets_with_counts = get_datasets_with_counts()
 if not datasets_with_counts:
     st.warning("No datasets found in the database.")
 else:
-    dataset_options = {f"{data_set_id} ({count} documents)": data_set_id for data_set_id, count in datasets_with_counts}
+    dataset_options = {f"{data_set_id} ({count} documents, {created_at.strftime('%Y-%m-%d %H:%M:%S') if created_at else 'N/A'})": data_set_id 
+                       for data_set_id, count, created_at in datasets_with_counts}
     selected_dataset_option = st.selectbox(
         "Select a dataset to analyze",
         options=list(dataset_options.keys()),

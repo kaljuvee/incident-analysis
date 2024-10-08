@@ -6,14 +6,23 @@ from typing import List, Dict
 import json
 import os
 from utils.embeddings_util import select_embedding_index
-from utils.db_util import get_datasets_with_counts
 
 # Load environment variables and set up OpenAI client
 client = OpenAI()
 
 ORIG_INCIDENT_TYPES = [
-    'Slip', 'Fire', 'Safety violation', 'Chemical spill', 'Injury',
-    'Near miss', 'Electrical', 'Ventilation', 'Falling object', 'Heat exhaustion'
+    'Slip',
+    'Fire',
+    'Safety violation',
+    'Chemical spill',
+    'Injury',
+    'Near miss',
+    'Electrical',
+    'Ventilation',
+    'Falling object',
+    'Heat exhaustion',
+    'Scaffolding',  # New incident type
+    'Bee stings'    # New incident type
 ]
 
 def discover_incident_info(documents, prompt, temperature, max_tokens):
@@ -27,22 +36,17 @@ def discover_incident_info(documents, prompt, temperature, max_tokens):
     )
     
     content = response.choices[0].message.content
-    incident_types, plants, causes = parse_response(content)
-    return incident_types, plants, causes
+    incident_types = parse_response(content)
+    return incident_types
 
 def parse_response(content):
-    sections = content.split('\n\n')
-    incident_types = [t.strip() for t in sections[0].split(':')[1].split(',')]
-    plants = [p.strip() for p in sections[1].split(':')[1].split(',')]
-    causes = [c.strip() for c in sections[2].split(':')[1].split(',')]
-    return incident_types, plants, causes
+    incident_types = [t.strip() for t in content.split(':')[1].split(',')]
+    return incident_types
 
-def save_incident_info(incident_types, plants, causes, index_id):
+def save_incident_info(incident_types, index_id):
     info = {
         'index_id': index_id,
         'incident_types': incident_types,
-        'plants': plants,
-        'causes': causes,
         'timestamp': datetime.now().isoformat()
     }
     os.makedirs('embeddings', exist_ok=True)
@@ -78,17 +82,9 @@ def get_latest_version():
 # Initialize session state variables
 if 'incident_types' not in st.session_state:
     st.session_state.incident_types = []
-if 'plants' not in st.session_state:
-    st.session_state.plants = []
-if 'causes' not in st.session_state:
-    st.session_state.causes = []
-if 'saved_prompt' not in st.session_state:
-    st.session_state.saved_prompt = None
-if 'edited_prompt' not in st.session_state:
-    st.session_state.edited_prompt = None
 
 # Streamlit app
-st.title("Discover Incident Types, Plants, and Causes")
+st.title("Discover Incident Types")
 
 # Load embeddings and index
 selected_metadata, embeddings, index, processed_documents, embedding_model = select_embedding_index()
@@ -112,22 +108,12 @@ if selected_metadata is not None:
     # Default prompt
     default_prompt = """Analyze the following incident reports and provide the following information:
 
-1. List all unique incident types you can identify. Use concise, general categories that match the following list as closely as possible:
-Slip, Fire, Safety violation, Chemical spill, Injury, Near miss, Electrical, Ventilation, Falling object, Heat exhaustion
-You may introduce new categories if necessary.
-
-2. List all unique plants mentioned in the incidents.
-
-3. List all unique causes of the incidents.
+List all unique incident types you can identify. Use concise, general categories that match and you may introduce new categories if necessary.
 
 Format your response as follows:
 Incident Types: [comma-separated list of incident types]
 
-Plants: [comma-separated list of plants]
-
-Causes: [comma-separated list of causes]
-
-If you cannot identify any items in a category, write "Unknown" for that category.
+If you cannot identify any incident types, write "Unknown" for that category.
 """
 
     # Prompt versioning
@@ -161,44 +147,36 @@ If you cannot identify any items in a category, write "Unknown" for that categor
         st.success(f"Prompt saved successfully as {saved_file}!")
 
     # Button to discover incident information
-    if st.button("Discover Incident Information"):
-        with st.spinner(f"Discovering incident information from {len(processed_documents)} documents..."):
-            st.session_state.incident_types, st.session_state.plants, st.session_state.causes = discover_incident_info(
+    if st.button("Discover Incident Types"):
+        with st.spinner(f"Discovering incident types from {len(processed_documents)} documents..."):
+            st.session_state.incident_types = discover_incident_info(
                 processed_documents, 
                 st.session_state.edited_prompt,
                 temperature,
                 max_tokens
             )
-        st.success("Incident information discovered successfully!")
+        st.success("Incident types discovered successfully!")
         st.write("Discovered incident types:", st.session_state.incident_types)
-        st.write("Discovered plants:", st.session_state.plants)
-        st.write("Discovered causes:", st.session_state.causes)
         
         # Save the discovered incident information
         saved_file = save_incident_info(
             st.session_state.incident_types, 
-            st.session_state.plants, 
-            st.session_state.causes, 
             selected_metadata['index_id']
         )
-        st.success(f"Incident information saved successfully in {saved_file}!")
+        st.success(f"Incident types saved successfully in {saved_file}!")
 
     # Display current incident information
-    if st.session_state.incident_types or st.session_state.plants or st.session_state.causes:
-        st.subheader("Current Incident Information")
+    if st.session_state.incident_types:
+        st.subheader("Current Incident Types")
         st.write("Incident Types:", ", ".join(st.session_state.incident_types))
-        st.write("Plants:", ", ".join(st.session_state.plants))
-        st.write("Causes:", ", ".join(st.session_state.causes))
     else:
         # Try to load existing incident information
         existing_info = load_incident_info(selected_metadata['index_id'])
         if existing_info:
-            st.subheader("Previously Discovered Incident Information")
-            st.write("Incident Types:", ", ".join(existing_info['incident_types']))
-            st.write("Plants:", ", ".join(existing_info['plants']))
-            st.write("Causes:", ", ".join(existing_info['causes']))
-            st.info(f"This information was discovered on {existing_info['timestamp']}")
+            st.subheader("Previously Discovered Incident Types")
+            st.write("Incident Types:", ", ".join(existing_info.get('incident_types', ['None found'])))
+            st.info(f"This information was discovered on {existing_info.get('timestamp', 'Unknown date')}")
         else:
-            st.info("No incident information discovered yet. Click 'Discover Incident Information' to start.")
+            st.info("No incident types discovered yet. Click 'Discover Incident Types' to start.")
 else:
     st.error("Failed to load embeddings and index. Please run the Create Embeddings Index script first.")

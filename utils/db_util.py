@@ -1,10 +1,12 @@
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, Text, String, func
+from sqlalchemy import create_engine, Column, Integer, Text, String, func, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import uuid
 from sqlalchemy import func
+from sqlalchemy import inspect
+from sqlalchemy.sql import text
 
 # Load environment variables from .env file
 load_dotenv()
@@ -23,9 +25,11 @@ class Document(Base):
     id = Column(Integer, primary_key=True)
     data_set_id = Column(String(36), index=True)  # UUID is 36 characters long
     document_content = Column(Text)
+    created_at = Column(DateTime, default=func.now())  # Add this line
 
 def create_tables():
     Base.metadata.create_all(engine)
+    add_created_at_column()
 
 def store_documents(contents, data_set_id=None):
     if data_set_id is None:
@@ -64,8 +68,20 @@ def get_datasets_with_counts():
     try:
         datasets_with_counts = session.query(
             Document.data_set_id,
-            func.count(Document.id).label('doc_count')
+            func.count(Document.id).label('doc_count'),
+            func.min(Document.created_at).label('created_at')
         ).group_by(Document.data_set_id).all()
-        return [(dataset_id, count) for dataset_id, count in datasets_with_counts]
+        return [(dataset_id, count, created_at) for dataset_id, count, created_at in datasets_with_counts]
     finally:
         session.close()
+
+def add_created_at_column():
+    from sqlalchemy import Column, DateTime
+    from sqlalchemy.sql import func
+    
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
+    inspector = inspect(engine)
+    
+    if 'created_at' not in [c['name'] for c in inspector.get_columns('documents')]:
+        with engine.begin() as connection:
+            connection.execute(text("ALTER TABLE documents ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"))

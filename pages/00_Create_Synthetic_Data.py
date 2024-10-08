@@ -4,6 +4,8 @@ import streamlit as st
 from faker import Faker
 import plotly.express as px
 import json
+import datetime
+from operator import itemgetter
 from utils.db_util import store_documents, read_documents_by_dataset, create_tables, get_datasets_with_counts
 
 # Initialize Faker
@@ -22,65 +24,55 @@ incident_types = [
     'Electrical',
     'Ventilation',
     'Falling object',
-    'Heat exhaustion'
+    'Heat exhaustion',
+    'Scaffolding',  # New incident type
+    'Bee stings'    # New incident type
 ]
-incident_causes = ['Human error', 'Equipment', 'Environment', 'Unknown']
-plants = ['Plant A', 'Plant B', 'Plant C', 'Plant D']
 
-# Sample descriptions for variation (without incident type and cause tags)
+# Update the incident_descriptions with corresponding incident types
 incident_descriptions = [
-    "Employee reported dizziness and nausea in {plant}'s packaging area on {date}.",
-    "A fire alarm was triggered in {plant}'s assembly line on {date}.",
-    "On {date}, a worker in {plant}'s production area tripped over an unmarked hazard.",
-    "A near-miss incident was reported on {date} at {plant}.",
-    "Symptoms of heat exhaustion were reported by a worker in {plant} on {date}."
+    ("Employee reported dizziness and nausea in the packaging area on {date}.", "Injury"),
+    ("A fire alarm was triggered in the assembly line on {date}.", "Fire"),
+    ("On {date}, a worker in the production area tripped over an unmarked hazard.", "Falling object"),
+    ("A near-miss incident was reported on {date}.", "Near miss"),
+    ("Symptoms of heat exhaustion were reported by a worker on {date}.", "Heat exhaustion"),
+    ("Scaffolding material is observed removed from the structure of the north and south buildings between the north and south buildings on {date}.", "Scaffolding"),
+    ("Bee hives are detected, one is located in a register and another is located on a post with the risk that personnel in the area may be stung since they are located on a pedestrian walkway on {date}.", "Bee stings")
 ]
 
 # Function to plot incident statistics using Plotly
 def plot_incident_stats(df):
-    st.subheader("Incident Cause by Location")
-
-    # Incident Cause by Location (grouped by plant)
-    incident_cause_by_location_df = incident_cause_by_location(df)
-    st.write(incident_cause_by_location_df)
-
-    # Plot for Incident Cause by Location
-    incident_cause_by_location_melted = incident_cause_by_location_df.reset_index().melt(id_vars="Incident Type", var_name="Plant", value_name="Count")
-    fig_location = px.bar(incident_cause_by_location_melted, x="Incident Type", y="Count", color="Plant", barmode="group", title="Incident Cause by Location")
-    st.plotly_chart(fig_location)
-
-    st.subheader("Incident Count by Cause")
-
-    # Incident Count by Cause (grouped by cause)
-    incidents_by_cause_df = incidents_by_cause(df)
-    st.write(incidents_by_cause_df)
-
-    # Plot for Incident Count by Cause
-    incidents_by_cause_melted = incidents_by_cause_df.reset_index().melt(id_vars="Incident Type", var_name="Cause", value_name="Count")
-    fig_cause = px.bar(incidents_by_cause_melted, x="Incident Type", y="Count", color="Cause", barmode="stack", title="Incident Count by Cause")
-    st.plotly_chart(fig_cause)
-
-    st.subheader("Incident Frequency by Type")
+    st.subheader("Incident Count Summary")
     
-    # Calculate and display incident frequency by type
-    incident_freq_df = incident_frequency_by_type(df)
-    incident_freq_df.columns = ['Incident Type', 'Frequency']
-    st.write(incident_freq_df)
+    # Calculate and display incident count by type
+    incident_count_df = incident_count_by_type(df)
+    incident_count_df.columns = ['Incident Type', 'Count']
+    st.write(incident_count_df)
 
-    # Plot for Incident Frequency by Type
-    fig_freq = px.bar(incident_freq_df, x="Incident Type", y="Frequency", title="Incident Frequency by Type")
-    st.plotly_chart(fig_freq)
+    # Plot for Incident Count by Type
+    fig_count = px.bar(incident_count_df, x="Incident Type", y="Count", title="Incident Count by Type")
+    st.plotly_chart(fig_count)
 
-# Function to generate a synthetic document
-def generate_synthetic_document(incident_id, plant):
+    # Number of incidents over date/time
+    st.subheader("Number of Incidents Over Time")
+    df['Date'] = pd.to_datetime(df['Date'])
+    incidents_over_time = df.groupby(df['Date'].dt.to_period('M')).size().reset_index(name='Count')
+    incidents_over_time['Date'] = incidents_over_time['Date'].dt.to_timestamp()
+    
+    fig_time = px.line(incidents_over_time, x='Date', y='Count', title="Incidents Over Time")
+    st.plotly_chart(fig_time)
+
+# Update the generate_synthetic_document function
+def generate_synthetic_document(incident_id):
     date = fake.date_this_year()
-    description_template = random.choice(incident_descriptions)
-    description = description_template.format(plant=plant, date=date)
+    description_template, incident_type = random.choice(incident_descriptions)
+    description = description_template.format(date=date)
     incident_report = {
         'Incident ID': incident_id,
-        'Plant': plant,
-        'Date': str(date),  # Convert to string for JSON serialization
-        'Description': description
+        'Date': str(date),
+        'Description': description,
+        'Incident Type': incident_type,
+        'created_at': datetime.datetime.now().isoformat()  # Add created_at field
     }
     return incident_report
 
@@ -89,12 +81,7 @@ def generate_documents(num_documents):
     data = []
     documents_to_store = []
     for i in range(1, num_documents + 1):
-        incident_type = random.choice(incident_types)
-        cause = random.choice(incident_causes)
-        plant = random.choice(plants)
-        document = generate_synthetic_document(i, plant)
-        document['Incident Type'] = incident_type
-        document['Cause'] = cause
+        document = generate_synthetic_document(i)
         data.append(document)
         documents_to_store.append(json.dumps(document))  # Convert to JSON string for storage
     
@@ -103,16 +90,8 @@ def generate_documents(num_documents):
     
     return pd.DataFrame(data), data_set_id
 
-# Incident count by cause summary
-def incidents_by_cause(df):
-    return df.groupby(['Incident Type', 'Cause']).size().unstack(fill_value=0)
-
-# Incident cause by location summary
-def incident_cause_by_location(df):
-    return df.groupby(['Incident Type', 'Plant']).size().unstack(fill_value=0)
-
-# New function to calculate incident frequency by type
-def incident_frequency_by_type(df):
+# New function to calculate incident count by type
+def incident_count_by_type(df):
     return df['Incident Type'].value_counts().reset_index()
 
 # Streamlit UI starts here
@@ -137,8 +116,12 @@ datasets_with_counts = get_datasets_with_counts()
 if not datasets_with_counts:
     st.warning("No datasets found in the database.")
 else:
+    # Sort datasets by timestamp (newest first)
+    sorted_datasets = sorted(datasets_with_counts, key=lambda x: x[2] if x[2] else datetime.datetime.min, reverse=True)
+    
     # Create a dictionary for the selectbox options
-    dataset_options = {f"{data_set_id} ({count} documents)": data_set_id for data_set_id, count in datasets_with_counts}
+    dataset_options = {f"{data_set_id} ({count} documents, {created_at.strftime('%Y-%m-%d %H:%M:%S') if created_at else 'N/A'})": data_set_id 
+                       for data_set_id, count, created_at in sorted_datasets}
     
     selected_dataset_option = st.selectbox(
         "Select a dataset to view",
@@ -154,13 +137,13 @@ else:
         df = pd.DataFrame([json.loads(doc) for doc in documents])
         
         st.subheader(f"Data from Dataset: {selected_dataset}")
+        
+        # Convert created_at to datetime and sort
+        df['created_at'] = pd.to_datetime(df['created_at'])
+        df = df.sort_values('created_at', ascending=False)
+        
+        # Display the dataframe
         st.dataframe(df.head(100))
 
         # Display statistics and plots
         plot_incident_stats(df)
-
-        # Number of incidents over date/time
-        st.subheader("Number of Incidents Over Time")
-        df['Date'] = pd.to_datetime(df['Date'])
-        incidents_over_time = df.groupby(df['Date'].dt.to_period('M')).size()
-        st.line_chart(incidents_over_time)

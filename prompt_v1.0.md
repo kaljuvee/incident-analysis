@@ -1,8 +1,6 @@
 Analyze the following incident reports and provide the following information:
 
-1. List all unique incident types you can identify. Use concise, general categories that match the following list as closely as possible:
-Slip, Fire, Safety violation, Chemical spill, Injury, Near miss, Electrical, Ventilation, Falling object, Heat exhaustion
-You may introduce new categories if necessary.
+1. List all unique incident types you can identify. Use concise terms for incident types
 
 2. List all unique plants mentioned in the incidents.
 
