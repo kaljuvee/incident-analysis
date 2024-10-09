@@ -1,0 +1,14 @@
+{
+    "slip": 8.33,
+    "fire": 12.5,
+    "safety violation": 16.67,
+    "chemical spill": 6.67,
+    "injury": 10,
+    "near miss": 15,
+    "electrical": 4.17,
+    "ventilation": 5.83,
+    "falling object": 7.5,
+    "heat exhaustion": 5,
+    "beehive": 2.5,
+    "scaffolding": 5.83
+}

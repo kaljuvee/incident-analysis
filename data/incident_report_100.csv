@@ -1,0 +1,25 @@
+incident_type,count,source
+safety violation,20,Ground Truth
+near miss,18,Ground Truth
+fire,15,Ground Truth
+injury,12,Ground Truth
+falling object,9,Ground Truth
+slip,9,Ground Truth
+chemical spill,8,Ground Truth
+ventilation,6,Ground Truth
+scaffolding,6,Ground Truth
+heat exhaustion,6,Ground Truth
+electrical,5,Ground Truth
+beehive,3,Ground Truth
+fire,17,Discovered
+employee slipped or fell,16,Discovered
+machinery malfunction causing injury,16,Discovered
+improper use or lack of ppe,15,Discovered
+ventilation system malfunction,13,Discovered
+potential forklift collision,11,Discovered
+power outage or electrical fault,10,Discovered
+object fell from height,10,Discovered
+chemical spill,9,Discovered
+scaffolding collapse,8,Discovered
+employee suffered from heat exhaustion,7,Discovered
+discovery of beehive,3,Discovered
