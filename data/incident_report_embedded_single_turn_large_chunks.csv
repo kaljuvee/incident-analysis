@@ -1,0 +1,91 @@
+incident_type,count,source
+fire,1,Ground Truth
+safety violation,1,Ground Truth
+near miss,1,Ground Truth
+injury,1,Ground Truth
+chemical spill,0,Ground Truth
+slip,0,Ground Truth
+electrical,0,Ground Truth
+ventilation,0,Ground Truth
+falling object,0,Ground Truth
+heat exhaustion,0,Ground Truth
+beehive,0,Ground Truth
+scaffolding,0,Ground Truth
+fire,116,Discovered
+employee operating heavy machinery without proper safety gear,108,Discovered
+chemical spill,87,Discovered
+equipment malfunction,62,Discovered
+near miss,60,Discovered
+scaffolding collapse,47,Discovered
+safety violation,44,Discovered
+unsecured load,40,Discovered
+ventilation system malfunction,40,Discovered
+heat exhaustion,36,Discovered
+unsecured object/unsafe storage,35,Discovered
+electrical outage,31,Discovered
+collision with forklift,26,Discovered
+object fell,24,Discovered
+beehive discovered,22,Discovered
+falling object,22,Discovered
+employee injury due to malfunctioning machinery,20,Discovered
+forklift near collision,20,Discovered
+slip incident,20,Discovered
+slip,16,Discovered
+equipment damage,14,Discovered
+production delays,12,Discovered
+employee slipping on a wet/oily surface,10,Discovered
+electrical incident,10,Discovered
+employee operating machinery without safety equipment,9,Discovered
+employee slipped,8,Discovered
+crane malfunction,7,Discovered
+oil spill,6,Discovered
+mechanical failure,6,Discovered
+employee slip,5,Discovered
+fire outbreak,5,Discovered
+electrical fault,5,Discovered
+collision near miss,5,Discovered
+employee slip on oil spill,5,Discovered
+bee infestation,5,Discovered
+conveyor malfunction,4,Discovered
+slipped on wet floor,4,Discovered
+safety risks,3,Discovered
+severe hand injury due to malfunctioning machine,3,Discovered
+unauthorized worker operating heavy machinery,3,Discovered
+slip on wet surface,3,Discovered
+severe hand injury due to safety protocols not being followed,2,Discovered
+slipped on oil spill,2,Discovered
+tripped over loose wiring,2,Discovered
+severe hand injury due to entanglement in conveyor belt,2,Discovered
+hand caught in a press machine,2,Discovered
+electrical failure,2,Discovered
+unboxed sharp cutting tool on manufacturing floor,1,Discovered
+severe burns due to sudden steam pipe leak,1,Discovered
+severe laceration to arm while operating sheet metal cutting machine,1,Discovered
+accidental engagement of stamping machine during maintenance,1,Discovered
+tripped over misplaced tool,1,Discovered
+minor injuries due to unlabeled wet surface,1,Discovered
+severe hand injury due to lack of physical guarding on a machine,1,Discovered
+unsecured steel beam nearly falling on worker,1,Discovered
+near-collision with machinery due to absence of visual warning signs,1,Discovered
+arm injury due to improper usage of a drill press machine,1,Discovered
+load fall from storage rack,1,Discovered
+significant hand injury due to unguarded mechanical press,1,Discovered
+significant hand injury due to trapped hand in machine,1,Discovered
+arm injury due to malfunction in assembly machine,1,Discovered
+severe hand injury from contact with malfunctioning lathe,1,Discovered
+worker critically injured due to malfunctioning conveyor belt,1,Discovered
+second-degree burn due to unguarded hot pipe,1,Discovered
+severe leg injury due to tripping over improperly stored equipment,1,Discovered
+serious arm injuries due to malfunction of conveyor belt,1,Discovered
+severe hand injury due to improper use of machinery,1,Discovered
+severe hand injury due to improper machine handling,1,Discovered
+severe hand injury due to mishap with mechanical press,1,Discovered
+minor injury due to malfunctioning equipment,1,Discovered
+severe hand injury due to malfunctioning equipment during maintenance,1,Discovered
+moderate injuries due to malfunction of conveyer belt,1,Discovered
+near-miss of dislodged conveyor component striking worker,1,Discovered
+near-collision with forklift due to faulty brakes,1,Discovered
+unauthorized operation,1,Discovered
+overheating incident,1,Discovered
+electrical fire,1,Discovered
+worker injury/slip/fall,1,Discovered

@@ -1,0 +1,171 @@
+incident_type,count,source
+safety violation,166,Ground Truth
+near miss,149,Ground Truth
+fire,124,Ground Truth
+injury,99,Ground Truth
+slip,83,Ground Truth
+falling object,74,Ground Truth
+chemical spill,66,Ground Truth
+ventilation,58,Ground Truth
+scaffolding,58,Ground Truth
+heat exhaustion,49,Ground Truth
+electrical,41,Ground Truth
+beehive,24,Ground Truth
+operating machinery without protective equipment,147,Discovered
+chemical spill,83,Discovered
+fire incident,62,Discovered
+scaffolding collapse,59,Discovered
+fire,53,Discovered
+heat exhaustion,52,Discovered
+hand injury,40,Discovered
+operating heavy machinery without appropriate personal protective equipment (ppe),36,Discovered
+beehive discovery,27,Discovered
+slip and fall,21,Discovered
+heavy object dislodgement,19,Discovered
+safety violation,18,Discovered
+near-miss with a forklift,17,Discovered
+slip and fall due to oil spill,12,Discovered
+ventilation system malfunction,12,Discovered
+arm injury,10,Discovered
+machinery malfunction,10,Discovered
+electrical short circuit,10,Discovered
+unsecured load falling,8,Discovered
+employee slip and fall,8,Discovered
+conveyor belt malfunction,7,Discovered
+improper machine usage,7,Discovered
+brake failure,6,Discovered
+slipped on oil spill,6,Discovered
+slip,6,Discovered
+brake failure in forklift,5,Discovered
+electrical outage,5,Discovered
+slip incident,5,Discovered
+dislodged machinery part,4,Discovered
+robotic arm malfunction,4,Discovered
+object falling from height/storage/conveyor,3,Discovered
+near collision with forklift,3,Discovered
+flooring hazard (unmarked wet floor),3,Discovered
+electrical fault,3,Discovered
+overhead crane malfunction,3,Discovered
+hydraulic press malfunction,3,Discovered
+unmarked wet surface,3,Discovered
+oil spill,2,Discovered
+hand caught in machine,2,Discovered
+sudden brake failure,2,Discovered
+misplaced fixture,1,Discovered
+blind spot collision,1,Discovered
+equipment activation injury,1,Discovered
+unattended supply cart,1,Discovered
+slip and fall incident,1,Discovered
+equipment spark,1,Discovered
+lack of safety lockout during maintenance,1,Discovered
+destabilized stack,1,Discovered
+sheet metal machine injury,1,Discovered
+loose bolt,1,Discovered
+electrical malfunction,1,Discovered
+overheating incident,1,Discovered
+unsecured supply rack tipping,1,Discovered
+overhead hoist malfunction,1,Discovered
+operational malfunction,1,Discovered
+overhead crane load falling,1,Discovered
+conveyor component dislodgement,1,Discovered
+impaired visibility,1,Discovered
+unmarked stack,1,Discovered
+failure of lifting mechanism,1,Discovered
+automated assembly line malfunction,1,Discovered
+slip on wet surface,1,Discovered
+trip and fall,1,Discovered
+unsecured heavy object nearly falling,1,Discovered
+employee slip accident,1,Discovered
+safety protocol failure,1,Discovered
+steel press injury,1,Discovered
+electrical surge,1,Discovered
+communication breakdown,1,Discovered
+slippery floor surface,1,Discovered
+faulty rigging,1,Discovered
+pneumatic press injury,1,Discovered
+collision avoidance with moving crane load,1,Discovered
+limited visibility collision,1,Discovered
+heavy machinery malfunction,1,Discovered
+floor hazard (unmarked wet floor),1,Discovered
+unsecured container,1,Discovered
+instability issue,1,Discovered
+high-pressure steam release incident,1,Discovered
+improper storage,0,Discovered
+heavy equipment securing failure,0,Discovered
+burn injury,0,Discovered
+automated machinery malfunction,0,Discovered
+unsecured item injury,0,Discovered
+equipment malfunction injury,0,Discovered
+conductor system malfunction,0,Discovered
+loosening bolt,0,Discovered
+unsecure machinery operation,0,Discovered
+slipping incident,0,Discovered
+malfunctioning machinery injury,0,Discovered
+electrical fault causing power outage,0,Discovered
+forklift collision,0,Discovered
+assembly line malfunction,0,Discovered
+cutting equipment injury,0,Discovered
+fire outbreak,0,Discovered
+unauthorized operation,0,Discovered
+overhead machinery dislodgment,0,Discovered
+falling 25kg material box,0,Discovered
+electrical fire,0,Discovered
+high-speed press misuse,0,Discovered
+bypassing safety locks,0,Discovered
+heavy machinery mishandling,0,Discovered
+unidentified loose equipment,0,Discovered
+mechanism malfunction,0,Discovered
+object fall from height,0,Discovered
+improper handling of machinery,0,Discovered
+overhead load unsecured,0,Discovered
+lubrication spill,0,Discovered
+improper usage of equipment,0,Discovered
+fire incidents,0,Discovered
+lack of safety equipment,0,Discovered
+improper stacking of materials,0,Discovered
+machinery entanglement,0,Discovered
+slipping on wet surfaces/ spills,0,Discovered
+ventilation system failure,0,Discovered
+slipped on a wet/oily surface,0,Discovered
+conveyor system malfunction,0,Discovered
+loaded conveyor malfunction,0,Discovered
+loose load,0,Discovered
+slipped on wet patch,0,Discovered
+unsecured machinery part,0,Discovered
+hazardous materials collision,0,Discovered
+malfunctioning robotic arm,0,Discovered
+slip and fall on greasy substance,0,Discovered
+industrial burn injury,0,Discovered
+improper stacking,0,Discovered
+unguarded machine,0,Discovered
+faulty brakes in forklift,0,Discovered
+tripping hazard,0,Discovered
+improper stacking incident,0,Discovered
+forklift operational hazard,0,Discovered
+non-insulated steam pipe contact,0,Discovered
+slip-and-fall incident,0,Discovered
+mechanical failure in the ventilation system,0,Discovered
+electrical incident,0,Discovered
+loss of control collision,0,Discovered
+unexpected obstruction in the ventilation system,0,Discovered
+equipment malfunction,0,Discovered
+operating machinery without safety gear,0,Discovered
+conveyor belt incident,0,Discovered
+unsecured load incident,0,Discovered
+unauthorized machinery operation,0,Discovered
+malfunctioning sensor,0,Discovered
+machine malfunction incident,0,Discovered
+heat exhaustion incidents,0,Discovered
+near-miss incident involving overhead crane,0,Discovered
+mechanical failure,0,Discovered
+collision without pedestrian protection,0,Discovered
+heavy object falling incidents,0,Discovered
+malfunctioning equipment,0,Discovered
+malfunction in the ventilation system,0,Discovered
+unsecured overhead load,0,Discovered
+conduct system malfunction,0,Discovered
+equipment malfunctioning,0,Discovered
+misused machinery,0,Discovered
+operating machinery without proper safety equipment,0,Discovered
+lubricant spill incident,0,Discovered
+unauthorized machine operation,0,Discovered

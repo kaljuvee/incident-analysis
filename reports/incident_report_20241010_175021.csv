@@ -1,0 +1,259 @@
+incident_type,count,source
+safety violation,166,Ground Truth
+near miss,149,Ground Truth
+fire,124,Ground Truth
+injury,99,Ground Truth
+slip,83,Ground Truth
+falling object,74,Ground Truth
+chemical spill,66,Ground Truth
+ventilation,58,Ground Truth
+scaffolding,58,Ground Truth
+heat exhaustion,49,Ground Truth
+electrical,41,Ground Truth
+beehive,24,Ground Truth
+fire,116,Discovered
+chemical spill,63,Discovered
+heat exhaustion,54,Discovered
+scaffolding collapse,51,Discovered
+operating heavy machinery without safety gear,45,Discovered
+operating heavy machinery without safety equipment,41,Discovered
+unsecured object fell from a height,41,Discovered
+employee not wearing personal protective equipment (ppe),37,Discovered
+malfunction in ventilation system,33,Discovered
+object falling from height,17,Discovered
+beehive discovered,17,Discovered
+operating heavy machinery without required safety equipment,17,Discovered
+hand injury due to malfunctioning machinery,10,Discovered
+electrical shortage,8,Discovered
+beehive,7,Discovered
+employee slipped,7,Discovered
+slipping on a spill,6,Discovered
+employee slipped on oil spill,6,Discovered
+forklift collision due to failed brake system,6,Discovered
+employee slipped on unattended wet/oily surface,5,Discovered
+worker slip,4,Discovered
+slipping due to unattended spill,4,Discovered
+electrical outage,4,Discovered
+slip and fall due to liquid spill,4,Discovered
+injury due to heavy machinery collision,4,Discovered
+worker slipped on an oil spill,4,Discovered
+safety violation,4,Discovered
+slip on wet surface,3,Discovered
+electrical failure,3,Discovered
+accident due to malfunctioning conveyor belt,3,Discovered
+employee slipped on wet surface,3,Discovered
+injury due to slipping on wet floor,3,Discovered
+malfunction in the ventilation system,3,Discovered
+unexpected electrical fault,3,Discovered
+electrical malfunction,3,Discovered
+electrical short circuit,3,Discovered
+injury due to dislodged part from conveyor line,2,Discovered
+slipped and fell due to oil spill,2,Discovered
+hand injury due to conveyor belt accident during maintenance,2,Discovered
+injury due to equipment malfunction operating heavy machinery,2,Discovered
+employee slipped on unmarked wet floor,2,Discovered
+employee sustained injury from conveyor belt,2,Discovered
+spillage of oil leading to slip and fall,2,Discovered
+unauthorized employee operating heavy machinery without training or ppe,2,Discovered
+hand injury due to malfunctioning assembly line machine,2,Discovered
+employee injured by malfunctioning conveyor belt,2,Discovered
+employee slip on a wet patch,2,Discovered
+operator sustained leg injury from falling metal sheet,1,Discovered
+employee bypassed a safety lock,1,Discovered
+several employees not wearing mandated safety gear,1,Discovered
+slip due to uncleaned spill,1,Discovered
+employee had direct unprotected contact with high-speed conveyor belt,1,Discovered
+high-pressure pipe detached,1,Discovered
+employee sustained an injury from machine moving parts,1,Discovered
+worker suffered a severe hand injury on the production line due to a malfunctioning machine,1,Discovered
+employee sustained a severe hand injury due to improper machine handling,1,Discovered
+employee suffered a minor injury due to a malfunctioning piece of equipment,1,Discovered
+employee suffered a severe hand injury due to a mishap with a mechanical press,1,Discovered
+operator sustained an arm injury due to a malfunction in the assembly machine unit,1,Discovered
+employee sustained a severe hand injury due to improper use of machinery,1,Discovered
+employee sustained a severe arm injury due to the malfunction of a conveyer belt,1,Discovered
+employee slipped on an oil spill on the factory floor,1,Discovered
+employee suffered a hand injury due to an unguarded mechanical press,1,Discovered
+staff member severely injured when his hand was caught in a malfunctioning equipment,1,Discovered
+worker sustained a significant hand injury when it became trapped in a malfunctioning conveyor belt,1,Discovered
+employee was seriously injured when his right hand unintentionally got caught in the active conveyor belt,1,Discovered
+operator sustained severe hand injuries due to the inadvertent activation of machinery,1,Discovered
+employee sustained a severe hand injury from accidental contact with a malfunctioning high-speed lathe,1,Discovered
+worker suffered a severe arm injury due to improper usage of a drill press machine,1,Discovered
+employee incurred serious arm injuries after getting caught in a machine,1,Discovered
+injury due to falling pallet,1,Discovered
+hand injury due to incorrect handling of metal press machinery,1,Discovered
+worker slipped on an oil spillage not marked with a hazard sign,1,Discovered
+hand injury due to lack of safety equipment operating punch press machine,1,Discovered
+hand injury due to conveyer belt entanglement,1,Discovered
+hand injury due to lack of machine guarding,1,Discovered
+hand injury due to malfunctioning stamping machine,1,Discovered
+injury due to malfunctioning conveyer belt,1,Discovered
+arm injury due to slipping on oil spill,1,Discovered
+hand injury due to conveyor belt accident,1,Discovered
+hand injury due to improperly operating metal stamping press,1,Discovered
+injury due to unexpected machine startup during maintenance,1,Discovered
+hand injury due to malfunctioning metal press machine,1,Discovered
+hand injury due to non-compliance with safety procedures at stamping machine,1,Discovered
+hand injury due to accidental engagement of stamping machine,1,Discovered
+hand injury due to improper handling of industrial cutting machine,1,Discovered
+injury due to slipping on liquid spill,1,Discovered
+hand injury due to accidental activation of machinery,1,Discovered
+injury due to improper safety gear operating heavy machinery,1,Discovered
+hand injury due to malfunctioning assembly line robot,1,Discovered
+injury due to tripping over misplaced tool,1,Discovered
+arm injury due to tripping over loose wiring,1,Discovered
+hand injury due to improper use of pneumatic press,1,Discovered
+hand injury due to machine accident on assembly line process,1,Discovered
+ankle injury due to tripping over loose wiring,1,Discovered
+employee hand injury from conveyor belt,1,Discovered
+employee hand injury due to missing safety guard,1,Discovered
+assembly line operator sustained hand injury,1,Discovered
+operation of forklift without proper training or certification,1,Discovered
+machinery operated by unauthorized personnel,1,Discovered
+employee hand injury due to malfunctioning machinery,1,Discovered
+employee injured due to malfunctioning machine belt,1,Discovered
+employee hand injury from metal press machine,1,Discovered
+technician hand injury from sheet metal folding machine,1,Discovered
+employee fell from height,1,Discovered
+operator sustained injury from pressurized steam,1,Discovered
+employee injured from improper handling of machinery,1,Discovered
+worker hand injury from heavy machinery,1,Discovered
+employee slip and fall from fluid leak,1,Discovered
+worker critically injured due to a malfunctioning conveyor belt,1,Discovered
+operator sustained a second-degree burn to their forearm from an unguarded hot pipe,1,Discovered
+metalworker operating a punch press suffered a severe hand injury due to safety protocols not being followed,1,Discovered
+worker in the assembly line tripped over an improperly stored equipment leading to a severe leg injury,1,Discovered
+operator injured when his hand was caught in a press machine,1,Discovered
+employee hand injury due to assembly line machinery malfunction,1,Discovered
+employee hand injury due to conveyor belt mishap,1,Discovered
+bypassing safety interlock,1,Discovered
+removal of safety guards from machinery,1,Discovered
+operational malfunction with crane nearly caused heavy load to drop,1,Discovered
+conveyor belt malfunction nearly caused pile-up of products,1,Discovered
+employee slipped due to oil spill,1,Discovered
+heavy machine component nearly fell due to loosening bolt,1,Discovered
+forklift operator narrowly avoided collision due to slippery floor surface,1,Discovered
+employee nearly injured by restart of faulty conveyor belt,1,Discovered
+heavy equipment nearly fell on employee,1,Discovered
+overhead hoist narrowly missed dropping heavy object due to faulty release mechanism,1,Discovered
+forklift operator nearly collided with pedestrian due to faulty brakes,1,Discovered
+operator nearly struck by dislodged conveyor component,1,Discovered
+unsecured steel beam nearly fell on worker,1,Discovered
+forklift operator nearly collided with stationary machinery due to absence of warning signs,1,Discovered
+plant worker injured due to malfunctioning machine,1,Discovered
+employee slipped on oil leak,1,Discovered
+employee injured while operating sheet metal press,1,Discovered
+machine operator suffered arm injury due to malfunctioning machine,1,Discovered
+line worker slipped on oil spill and fractured wrist,1,Discovered
+employee injured by tripping over loose wiring,1,Discovered
+worker injured due to contact with moving machinery parts,1,Discovered
+operator injured by conveyor belt machinery,1,Discovered
+machine operator injured by active conveyor belt system,1,Discovered
+employee injured by hand caught in malfunctioning machine,1,Discovered
+worker injured by faulty robotic arm on assembly line,1,Discovered
+forklift operator nearly collided with stationary machinery due to impaired visibility,1,Discovered
+near collision with unattended supply cart,1,Discovered
+unsecured overhead load falling,1,Discovered
+potential fall due to tripping over equipment,1,Discovered
+unsecured cargo container falling,1,Discovered
+potential collision with stack of finished goods due to brake failure,1,Discovered
+forklift operator nearly collided with stationary machinery due to brake failure,1,Discovered
+employee narrowly avoided injury due to falling bolt,1,Discovered
+employee nearly injured by malfunctioning heavy machinery,1,Discovered
+unsecured machinery nearly fell on worker,1,Discovered
+forklift operator avoided collision with stationary conveyor,1,Discovered
+employee slip on oil spill,1,Discovered
+employee nearly struck by a forklift,1,Discovered
+forklift operator nearly collided with pedestrian due to failure to yield,1,Discovered
+heavy object dislodged and narrowly missed hitting a worker,1,Discovered
+operator narrowly avoided falling object due to sudden equipment failure,1,Discovered
+employee narrowly avoided contact with a malfunctioning robotic arm,1,Discovered
+employee slipped due to hydraulic fluid spill,1,Discovered
+employee narrowly avoided being struck by a moving forklift,1,Discovered
+hydraulic press operated outside of safety parameters,1,Discovered
+unidentified loose equipment nearly caused collision with moving forklift,1,Discovered
+overhead crane malfunctioned,1,Discovered
+forklift operator nearly collided with misplaced fixture,1,Discovered
+minor injury and production disruption,1,Discovered
+employee narrowly escaped injury due to improperly stacked product,1,Discovered
+malfunctioning robotic arm near miss,1,Discovered
+potential hit from falling load due to faulty rigging,1,Discovered
+unsecured machinery part falling,1,Discovered
+slipping on oil spill,1,Discovered
+potential collision due to a blind spot,1,Discovered
+falling load from improperly secured crane,1,Discovered
+near collision with forklift due to limited visibility,1,Discovered
+machinery malfunction near miss,1,Discovered
+near collision with staging area due to a loss of control,1,Discovered
+near miss from unsafely operating forklift,1,Discovered
+heavy equipment load fall due to lifting mechanism failure,1,Discovered
+near collision with moving forklift,1,Discovered
+potential contact with non-insulated steam pipe,1,Discovered
+potential machinery fall due to mechanical failure,1,Discovered
+near miss from falling unsecured load due to mechanical failure,1,Discovered
+potential collision with malfunctioning robotic arm,1,Discovered
+injury due to heavy load falling from storage shelf,1,Discovered
+injury due to falling piece of machinery from hoisting device,1,Discovered
+faulty crane operation,1,Discovered
+overhead crane collision due to a malfunction in navigation system,1,Discovered
+forklift operator narrowly avoided collision with temporary storage structure,1,Discovered
+forklift operator narrowly avoided collision with pedestrian worker due to sudden brake failure,1,Discovered
+employee narrowly missed being hit by falling load from malfunctioning overhead crane,1,Discovered
+worker narrowly avoided being struck by detached machinery,1,Discovered
+employee slipped on lubrication spill,1,Discovered
+forklift operator almost collided with worker,1,Discovered
+loaded conveyor malfunctioned and released load unexpectedly,1,Discovered
+equipment malfunctioned and sparked,1,Discovered
+unsecured 25kg material box almost fell from elevated storage rack,1,Discovered
+unsecured machinery part nearly struck an employee,1,Discovered
+hydraulic press malfunctioned mid-cycle,1,Discovered
+heavy machinery dropped load unexpectedly,1,Discovered
+unsecured crate nearly fell onto employee operating forklift,1,Discovered
+employee nearly missed by dislodged machinery,1,Discovered
+unsecured crate almost fell onto unattended forklift,1,Discovered
+injury due to falling pallet of materials,1,Discovered
+injury due to unsecured heavy object,1,Discovered
+injury due to contact with moving machinery,1,Discovered
+injury due to unsecured heavy machinery element,1,Discovered
+injury due to unsecured load from overhead crane,1,Discovered
+collision due to lack of visibility,1,Discovered
+supply rack tipping over,1,Discovered
+injury due to heavy crate falling from conveyor belt,1,Discovered
+injury due to heavy load falling from shelf,1,Discovered
+injury due to heavy steel rods falling,1,Discovered
+injury due to loose component falling from assembly line,1,Discovered
+injury due to unsecured load from forklift,1,Discovered
+injury due to high-pressure steam release,1,Discovered
+electrical surge,1,Discovered
+substantial power outage,1,Discovered
+shutdown of key production machineries,1,Discovered
+short-circuit in main power grid,1,Discovered
+large-scale power outage due to circuit breaker trip,1,Discovered
+delay due to electrical outage,1,Discovered
+shutdown due to unidentified electrical fault,1,Discovered
+short circuit in primary machinery control panel,1,Discovered
+injury due to sleeve caught in unguarded conveyor belt,1,Discovered
+slip and fall due to greasy substance,1,Discovered
+injury due to malfunctioning robotic arm,1,Discovered
+short circuit in assembly line machinery,1,Discovered
+malfunctioning circuit breaker,1,Discovered
+electrical error,1,Discovered
+electrical fault in conveyor belt system,1,Discovered
+serious power surge,1,Discovered
+overheating incident in ventilation system,1,Discovered
+blockage in ventilation system,1,Discovered
+critical operational failure detected in ventilation system,1,Discovered
+electrical fault,1,Discovered
+major electrical malfunction,1,Discovered
+employee slipped on oil puddle,1,Discovered
+significant electrical fault,1,Discovered
+electrical fire,1,Discovered
+ventilation system ceased functioning due to probable mechanical failure,1,Discovered
+malfunction in the ventilation due to electrical fault leading to shutdown,1,Discovered
+ventilation system shutdown caused by unaddressed maintenance issue,1,Discovered
+ventilation system failure due to overload,1,Discovered
+malfunction in the ventilation system leading to high temperatures on production floor,1,Discovered
+employee slipped and fell on spillage,1,Discovered
+fire broke out,1,Discovered
+slip due to liquid spill,1,Discovered

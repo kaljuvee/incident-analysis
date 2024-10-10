@@ -1,0 +1,24 @@
+incident_type,count,source
+safety violation,166,Ground Truth
+near miss,149,Ground Truth
+fire,124,Ground Truth
+injury,99,Ground Truth
+slip,83,Ground Truth
+falling object,74,Ground Truth
+chemical spill,66,Ground Truth
+ventilation,58,Ground Truth
+scaffolding,58,Ground Truth
+heat exhaustion,49,Ground Truth
+electrical,41,Ground Truth
+beehive,24,Ground Truth
+fire,295,Discovered
+safety violation,120,Discovered
+near miss,108,Discovered
+slip,103,Discovered
+object falling,83,Discovered
+chemical spill,70,Discovered
+ventilation malfunction,68,Discovered
+scaffolding collapse,52,Discovered
+heat exhaustion,50,Discovered
+electrical,47,Discovered
+beehive,15,Discovered

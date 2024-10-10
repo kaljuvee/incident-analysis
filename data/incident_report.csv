@@ -1,0 +1,158 @@
+incident_type,count,source
+safety violation,166,Ground Truth
+near miss,149,Ground Truth
+fire,124,Ground Truth
+injury,99,Ground Truth
+slip,83,Ground Truth
+falling object,74,Ground Truth
+chemical spill,66,Ground Truth
+ventilation,58,Ground Truth
+scaffolding,58,Ground Truth
+heat exhaustion,49,Ground Truth
+electrical,41,Ground Truth
+beehive,24,Ground Truth
+safety violation,113,Discovered
+near miss,98,Discovered
+fire incident,61,Discovered
+workplace accident,54,Discovered
+chemical spill,41,Discovered
+fire,39,Discovered
+safety violation.,35,Discovered
+workplace injury,31,Discovered
+workplace injury.,28,Discovered
+scaffolding collapse,28,Discovered
+falling object incident,24,Discovered
+slip and fall accident,20,Discovered
+equipment malfunction,20,Discovered
+heat exhaustion incident.,17,Discovered
+chemical spill incident,16,Discovered
+workplace safety incident,15,Discovered
+fire incident.,13,Discovered
+heat exhaustion.,13,Discovered
+near miss.,12,Discovered
+equipment failure,12,Discovered
+near miss incident.,11,Discovered
+near-miss incident,11,Discovered
+heat exhaustion incident,11,Discovered
+near miss incident,10,Discovered
+electrical incident,9,Discovered
+bee infestation,9,Discovered
+slip and fall accident.,8,Discovered
+workplace safety incident.,8,Discovered
+workplace accident.,7,Discovered
+falling object,7,Discovered
+fire outbreak,7,Discovered
+slip and fall incident,7,Discovered
+workplace injury incident,6,Discovered
+scaffolding collapse incident,6,Discovered
+ventilation system malfunction,6,Discovered
+environmental hazard,5,Discovered
+heat exhaustion,5,Discovered
+slip and fall incident.,5,Discovered
+fire.,4,Discovered
+safety protocol violation,4,Discovered
+safety violation incident.,4,Discovered
+electrical outage,4,Discovered
+mechanical failure,4,Discovered
+safety hazard,4,Discovered
+safety incident,4,Discovered
+injury,4,Discovered
+near-miss,4,Discovered
+ventilation system failure,3,Discovered
+mechanical failure.,3,Discovered
+structural collapse,3,Discovered
+electrical short circuit,3,Discovered
+equipment malfunction incident.,3,Discovered
+chemical spill.,3,Discovered
+slip incident,3,Discovered
+electrical fault.,3,Discovered
+equipment malfunction.,3,Discovered
+workplace safety violation,2,Discovered
+chemical spillage,2,Discovered
+structural collapse incident,2,Discovered
+scaffolding collapse.,2,Discovered
+scaffolding failure,2,Discovered
+safety hazard incident.,2,Discovered
+falling object incident.,2,Discovered
+bee infestation incident,2,Discovered
+structural collapse incident.,2,Discovered
+equipment failure.,2,Discovered
+electrical failure incident.,2,Discovered
+electrical malfunction,2,Discovered
+electrical fault,2,Discovered
+electrical shortage incident,2,Discovered
+chemical spill incident.,2,Discovered
+safety violation incident,2,Discovered
+environmental incident,2,Discovered
+slip-and-fall incident,1,Discovered
+workplace injury incident.,1,Discovered
+hazardous chemical spill,1,Discovered
+employee injury due to equipment malfunction,1,Discovered
+slip incident.,1,Discovered
+"slips, trips, and falls incident.",1,Discovered
+slip accident,1,Discovered
+accidental fall from height.,1,Discovered
+electrical incident.,1,Discovered
+electrical failure.,1,Discovered
+electrical error.,1,Discovered
+electrical fire,1,Discovered
+electrical outage incident.,1,Discovered
+electrical short circuit incident,1,Discovered
+power outage,1,Discovered
+electrical malfunction.,1,Discovered
+electrical fault incident,1,Discovered
+electrical failure,1,Discovered
+near-miss incident.,1,Discovered
+operational malfunction.,1,Discovered
+near-miss accident,1,Discovered
+electrical fault incident.,1,Discovered
+electrical short circuit.,1,Discovered
+electrical outage incident,1,Discovered
+machinery malfunction,1,Discovered
+hazardous chemical spill.,1,Discovered
+safety infraction,1,Discovered
+workplace safety violation.,1,Discovered
+unauthorized access/use of equipment,1,Discovered
+safety compliance violation,1,Discovered
+safety non-compliance incident,1,Discovered
+slip-and-fall accident,1,Discovered
+non-compliance with safety protocols.,1,Discovered
+object falling incident.,1,Discovered
+equipment malfunction incident,1,Discovered
+operational slowdown due to equipment malfunction.,1,Discovered
+object falling incident,1,Discovered
+operational failure,1,Discovered
+environmental/health and safety incident,1,Discovered
+overheating incident,1,Discovered
+unsafe condition.,1,Discovered
+workplace safety/accident.,1,Discovered
+object falling,1,Discovered
+potential workplace safety hazard.,1,Discovered
+safety hazard incident,1,Discovered
+equipment damage,1,Discovered
+potential falling object incident,1,Discovered
+accident,1,Discovered
+dropped object.,1,Discovered
+workplace safety hazard,1,Discovered
+dropped object incident,1,Discovered
+ventilation system failure.,1,Discovered
+wildlife/animal intrusion,1,Discovered
+fire outbreak.,1,Discovered
+heat-related illness,1,Discovered
+heat-related incident.,1,Discovered
+bee infestation incident.,1,Discovered
+wildlife intrusion,1,Discovered
+beehive intrusion,1,Discovered
+biological hazard,1,Discovered
+pest infestation,1,Discovered
+beekeeping or pest intrusion incident,1,Discovered
+heat exhaustion due to prolonged exposure to high temperature working conditions.,1,Discovered
+scaffold collapse incident,1,Discovered
+scaffold collapse,1,Discovered
+bee infestation.,1,Discovered
+structural failure.,1,Discovered
+structural failure incident,1,Discovered
+collapse of scaffolding,1,Discovered
+structural failure,1,Discovered
+scaffolding collapse incident.,1,Discovered
+structural integrity failure (scaffolding collapse),1,Discovered
